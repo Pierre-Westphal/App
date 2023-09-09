@@ -1,51 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Dashboard from './components/Dashboard/Dashboard';
+import Preferences from './components/Preferences/Preferences';
+import Login from './components/Login/Login';
 import './App.css';
-
-const API = "http://localhost:8000"
-
-const checkIsAlive = async () => {
-  let headers = new Headers();
-
-  headers.append('Content-Type', 'application/json');
-  headers.append('Accept', 'application/json');
-  headers.append('Origin','http://localhost:8000');
-
-  const response = await fetch(API, {
-    mode: 'cors',
-    credentials: "include",
-    method: "GET",
-    headers: headers
-  });
-  const body = await response.json()
-  console.log(body)
-  return body.message
-}
 
 function App() {
 
-  const [response, setResponse] = useState(null);
 
-  const onClickHandler = async () => {
-    const temp = await checkIsAlive();
+  const [token, setToken] = useState();
 
-    setResponse(temp);
+  if(!token) {
+    return <Login setToken={setToken} />
   }
+
   return (
-    <div>
-      <form>
-        <label>
-          Name:
-          <input type="text" name="name" />
-        </label>
-        <label>
-          Password:
-          <input type="password" name="password" />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-      <button
-        onClick={onClickHandler}>Test</button>
-        <p>{response}</p>
+    <div className="wrapper">
+      <h1>Application</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/preferences" element={<Preferences />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
