@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  front:
+    build:
+      context: ./front
+    volumes:
+      - ./front:/front
+    restart: always
+    ports:
+      - 3000:3000
+    image: front_i
+    container_name: front
+
+  api:
+    build: ./api
+    volumes:
+      - ./api:/api
+    command: uvicorn main:app --reload --host 0.0.0.0
+    restart: always
+    hostname: 0.0.0.0
+    environment:
+      - 127.0.0.1
+    ports:
+      - 8000:8000
+    image: api_i
+    container_name: api
+
