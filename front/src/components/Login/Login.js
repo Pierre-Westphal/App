@@ -6,7 +6,6 @@ import './Login.css';
 
 export default function Login({ setToken }) {
 
-  const [response, setResponse] = useState(null);
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
@@ -18,11 +17,6 @@ export default function Login({ setToken }) {
     });
 
     setToken(token);
-  }
-
-    const onClickHandler = async () => {
-      const temp = await get("health");
-      setResponse(temp);
   }
 
   return(
@@ -41,9 +35,6 @@ export default function Login({ setToken }) {
           <button type="submit">Submit</button>
         </div>
       </form>
-      <button
-        onClick={onClickHandler}>Test</button>
-      <p>{response}</p>
     </div>
   )
 }

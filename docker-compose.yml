@@ -2,8 +2,7 @@ version: "3.8"
 
 services:
   front:
-    build:
-      context: ./front
+    build: ./front
     volumes:
       - ./front:/front
     restart: always
@@ -26,14 +25,14 @@ services:
     image: api_i
     container_name: api
 
-  db:
-    container_name: database
-    image: 'mariadb:latest'
-    restart: always
-    ports:
-      - 3306:3306
-    volumes:
-      - './.docker/mysql:/var/lib/mysql'
-    environment: 
-      MARIADB_ROOT_PASSWORD: admin
+  # db:
+  #   container_name: database
+  #   image: 'mariadb:latest'
+  #   restart: always
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - './.docker/mysql:/var/lib/mysql'
+  #   environment: 
+  #     MARIADB_ROOT_PASSWORD: admin
 
