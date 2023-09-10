@@ -6,8 +6,6 @@ import Login from './components/Login/Login';
 import './App.css';
 
 function App() {
-
-
   const [token, setToken] = useState();
 
   if(!token) {
