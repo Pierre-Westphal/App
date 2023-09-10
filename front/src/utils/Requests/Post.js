@@ -8,9 +8,7 @@ async function post(url, credentials) {
     return fetch(tempUrl, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Origin':'http://localhost:8000'
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(credentials)
     })
