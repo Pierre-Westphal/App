@@ -1,7 +1,6 @@
 import React ,{ useState } from 'react';
 import PropTypes from 'prop-types';
 import post from '../../utils/Requests/Post'
-import get from '../../utils/Requests/Get'
 import './Login.css';
 
 export default function Login({ setToken }) {
