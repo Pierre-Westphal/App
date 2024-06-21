@@ -1,33 +1,30 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React from "react";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
-import PrivateRoute from "./components/Common/PrivateRoute";
-import './App.css';
-import SecuredApp from './SecuredApp';
-import keycloak from './components/Keycloak/Keycloak';
+import keycloak from "./Keycloak/Keycloak"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Nav from "./components/Nav";
+import WelcomePage from "./pages/HomePage";
+import SecuredPage from "./pages/SecurePage";
+import PrivateRoute from "./helpers/PrivateRoute";
 
 function App() {
-
-  return (
-    <div className="wrapper">
-      <ReactKeycloakProvider authClient={keycloak}>
-        <BrowserRouter>
-          <div>
-            <Routes>
-              <Route
-                path='/'
-                element={
-                  <PrivateRoute>
-                    <SecuredApp />
-                  </PrivateRoute>
-                } 
-              />
-            </Routes>
-          </div>
-        </BrowserRouter>
-      </ReactKeycloakProvider>
-    </div>
-  );
+ return (
+   <div>
+     <ReactKeycloakProvider authClient={keycloak}>
+       <Nav />
+       <BrowserRouter>
+         <Routes>
+           <Route exact path="/" element={<WelcomePage />} />
+            <Route path="/secured" element={
+              <PrivateRoute>
+                <SecuredPage />
+              </PrivateRoute>
+            }/>
+         </Routes>
+       </BrowserRouter>
+       </ReactKeycloakProvider>
+   </div>
+ );
 }
 
 export default App;

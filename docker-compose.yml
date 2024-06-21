@@ -9,6 +9,9 @@ services:
     image: front_i
     container_name: front
     stdin_open: true
+    volumes:
+      - ./front/node_modules:/front/node_modules
+      - ./front:/front
 
   api:
     build: ./api
