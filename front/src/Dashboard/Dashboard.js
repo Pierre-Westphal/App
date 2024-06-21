@@ -9,7 +9,6 @@ export default function Dashboard() {
     const temp = await get("health");
     setResponse(temp);
   }
-  console.log("TEST")
   return(
     <div>
       <button

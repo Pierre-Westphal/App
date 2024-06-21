@@ -1,9 +1,9 @@
-import Keycloak from "keycloak-js";
+import Keycloak from 'keycloak-js';
 
-const keycloak = new Keycloak({
- url: "http://host.docker.internal:8088/auth",
- realm: "local",
- clientId: "client",
+const keycloakConfig = new Keycloak({
+  url: 'http://localhost:8088',
+  realm: 'local',
+  clientId: 'client',
 });
 
-export default keycloak;
+export default keycloakConfig;
