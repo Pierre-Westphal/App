@@ -1,11 +1,10 @@
-const request = (url, method) => {
-  fetch(`http://localhost:8080/${url}`, {
+export async function apiRequest(url, method) {
+  const response = await fetch(`http://localhost:8000/${url}`, {
     method: method,
     headers: {
       'content-type': 'application/json',
       accept: 'application/json',
     },
   });
-};
-
-export default request;
+  return response.json();
+}

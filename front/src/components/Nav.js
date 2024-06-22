@@ -9,6 +9,7 @@ const Nav = () => {
   const pages = [
     { name: 'HomePage', link: '/' },
     { name: 'SecurePage', link: '/secured' },
+    { name: 'Form', link: '/form' },
   ];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
