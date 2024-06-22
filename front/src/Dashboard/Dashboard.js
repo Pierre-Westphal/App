@@ -1,5 +1,5 @@
 import React ,{ useState } from 'react';
-import get from '../../utils/Requests/Get'
+import get from '../utils/Requests/Get'
 
 export default function Dashboard() {
 
@@ -9,7 +9,6 @@ export default function Dashboard() {
     const temp = await get("health");
     setResponse(temp);
   }
-
   return(
     <div>
       <button

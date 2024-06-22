@@ -1,37 +1,36 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import Dashboard from './components/Dashboard/Dashboard';
-import Preferences from './components/Preferences/Preferences';
-import Login from './components/Login/Login';
-import './App.css';
+import React from 'react';
+import { ReactKeycloakProvider } from '@react-keycloak/web';
+import keycloakConfig from './Keycloak/Keycloak';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Nav from './components/Nav';
+import WelcomePage from './pages/HomePage';
+import SecuredPage from './pages/SecurePage';
+import UserCreationPage from './pages/UserCreationPage';
+import PrivateRoute from './helpers/PrivateRoute';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [token, setToken] = useState();
-
-  if(!token) {
-    return <Login setToken={setToken} />
-  }
-
   return (
-    <div className="wrapper">
-      <h1>Application</h1>
-      <BrowserRouter>
-        <div>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link to="/preferences">Preferences</Link>
-          </li>
+    <div>
+      <ReactKeycloakProvider authClient={keycloakConfig}>
+        <Nav />
+        <BrowserRouter>
           <Routes>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/preferences" element={<Preferences />} />
+            <Route exact path='/' element={<WelcomePage />} />
+            <Route exact path='/form' element={<UserCreationPage />} />
+            <Route
+              path='/secured'
+              element={
+                <PrivateRoute>
+                  <SecuredPage />
+                </PrivateRoute>
+              }
+            />
           </Routes>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+        <ToastContainer position='bottom-right' />
+      </ReactKeycloakProvider>
     </div>
   );
 }

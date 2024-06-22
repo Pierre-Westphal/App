@@ -3,13 +3,15 @@ version: "3.8"
 services:
   front:
     build: ./front
-    volumes:
-      - ./front:/front
     restart: always
     ports:
       - 3000:3000
     image: front_i
     container_name: front
+    stdin_open: true
+    volumes:
+      - ./front/node_modules:/front/node_modules
+      - ./front:/front
 
   api:
     build: ./api
@@ -24,6 +26,7 @@ services:
       - 8000:8000
     image: api_i
     container_name: api
+    stdin_open: true
 
   # db:
   #   container_name: database
@@ -36,3 +39,39 @@ services:
   #   environment: 
   #     MARIADB_ROOT_PASSWORD: admin
 
+  keycloak-server:
+    build: ./sso
+    ports: 
+      - 8088:8080
+      - 8443:8443
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - DB_ADDR=keycloak-db
+      - DB_PORT=5432
+      - DB_DATABASE=keycloak
+      - DB_SCHEMA=keycloak
+      - DB_USER=admin
+      - DB_PASSWORD=admin
+      - KC_DB=postgres
+      - KC_DB_URL=jdbc:postgresql://keycloak-db:5432/keycloak
+      - KC_DB_USERNAME=admin
+      - KC_DB_PASSWORD=admin
+      - KC_HEALTH_ENABLED=true
+      - KC_METRICS_ENABLED=true
+
+  keycloak-db:
+    image: postgres:16
+    ports: 
+      - 5433:5432
+    volumes: 
+      - "postgres_keycloak_db:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "keycloak"
+
+volumes:
+  postgres_keycloak_db:
+    driver: local
+    
