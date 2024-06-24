@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 
 services:
   front:
@@ -21,27 +21,30 @@ services:
     restart: always
     hostname: 0.0.0.0
     environment:
-      - 127.0.0.1
+      SSO_ADMIN_USERNAME: admin
+      SSO_ADMIN_PASSWORD: admin
+      SSO_URL: http://host.docker.internal:8088/
+
     ports:
       - 8000:8000
     image: api_i
     container_name: api
     stdin_open: true
 
-  # db:
-  #   container_name: database
-  #   image: 'mariadb:latest'
-  #   restart: always
-  #   ports:
-  #     - 3306:3306
-  #   volumes:
-  #     - './.docker/mysql:/var/lib/mysql'
-  #   environment: 
-  #     MARIADB_ROOT_PASSWORD: admin
+  db:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'admin'
 
   keycloak-server:
     build: ./sso
-    ports: 
+    ports:
       - 8088:8080
       - 8443:8443
     environment:
@@ -62,16 +65,17 @@ services:
 
   keycloak-db:
     image: postgres:16
-    ports: 
+    ports:
       - 5433:5432
-    volumes: 
-      - "postgres_keycloak_db:/var/lib/postgresql/data"
+    volumes:
+      - 'postgres_keycloak_db:/var/lib/postgresql/data'
     environment:
-      POSTGRES_USER: "admin"
-      POSTGRES_PASSWORD: "admin"
-      POSTGRES_DB: "keycloak"
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+      POSTGRES_DB: 'keycloak'
 
 volumes:
   postgres_keycloak_db:
     driver: local
-    
+  postgres:
+    driver: local
