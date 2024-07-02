@@ -3,7 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 
-SQLALCHEMY_DATABASE_URL = "http://host.docker.internal:5432/"
+SQLALCHEMY_DATABASE_URL = 'postgresql://admin:admin@host.docker.internal:5432/admin'
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 

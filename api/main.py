@@ -1,17 +1,17 @@
 from schemas.user import User
-from config.models import UserModel
-from typing import Annotated
+from models.user_model import UserModel
+from typing import Annotated, Union
 from sqlalchemy.orm import Session
 from starlette import status
-from congig.database_connection import engine, SessionLocal
-import models
+from config.database_connection import engine, SessionLocal
+from models.base_model import Base
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import Request, Response
+from fastapi import Request, Response, Depends
 
 app = FastAPI()
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
 def get_db():
     db = SessionLocal()
@@ -20,6 +20,7 @@ def get_db():
     finally:
         db.close()
 
+db_dependency = Annotated[Session, Depends(get_db)]
 
 origins = ["http://localhost:3000"]
 
@@ -45,9 +46,24 @@ async def login(request: Request):
     return await request.json()
 
 @app.post("/users", status_code=status.HTTP_201_CREATED)
-async def create_user(db: db_dependency, user_data: User):
-    user = UserModel(**user_data.dict())
+async def create_user(
+    db: db_dependency,  # Dependency injection for the database session
+    user_data: User  # User data from the request body
+):
+    """
+    Create a new user.
+
+    Args:
+        db (Session): The database session.
+        user_data (User): The user data from the request body.
+
+    Returns:
+        Union[User, Response]: The created user data if successful, otherwise a Response object.
+    """
+    user = UserModel(**user_data.dict())  # Create a new UserModel instance
     try:
-        return user_data
+        db.add(user)  # Add the user to the session
+        db.commit()  # Commit the changes to the database
+        return user_data  # Return the created user data
     except Exception as exc:
-        return Response
+        return Response  # Return a Response object in case of an error
