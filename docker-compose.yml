@@ -24,12 +24,19 @@ services:
       SSO_ADMIN_USERNAME: admin
       SSO_ADMIN_PASSWORD: admin
       SSO_URL: http://host.docker.internal:8088/
-
+      SSO_REALM: local
+      SSO_CLIENT_ID: client
+      WWW_URL: http://localhost:3000
+      DATABASE_URL: postgresql://admin:admin@keycloak-db:5432/admin
     ports:
       - 8000:8000
     image: api_i
     container_name: api
     stdin_open: true
+    depends_on:
+      - db
+      - keycloak-server
+      - keycloak-db
 
   db:
     image: postgres:14-alpine

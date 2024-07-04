@@ -8,11 +8,13 @@ from models.base_model import Base
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request, Response, Depends
+from config.config import AppConfig
 
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
 
+app_settings = AppConfig()
 def get_db():
     db = SessionLocal()
     try:
@@ -22,7 +24,7 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-origins = ["http://localhost:3000"]
+origins = [app_settings.WWW_URL]
 
 app.add_middleware(
     CORSMiddleware,
