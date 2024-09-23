@@ -8,14 +8,15 @@ import SecuredPage from './pages/SecurePage';
 import UserCreationPage from './pages/UserCreationPage';
 import PrivateRoute from './helpers/PrivateRoute';
 import { ToastContainer } from 'react-toastify';
+import { AuthProvider } from './context/AuthContext';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <div>
-      <ReactKeycloakProvider authClient={keycloakConfig}>
-        <Nav />
+      <AuthProvider>
         <BrowserRouter>
+          <Nav />
           <Routes>
             <Route exact path='/' element={<WelcomePage />} />
             <Route exact path='/form' element={<UserCreationPage />} />
@@ -30,7 +31,7 @@ function App() {
           </Routes>
         </BrowserRouter>
         <ToastContainer position='bottom-right' />
-      </ReactKeycloakProvider>
+      </AuthProvider>
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { TextField, Button, Grid, Container } from '@mui/material';
 import { apiRequest } from '../commons/Request';
 import { toast } from 'react-toastify';
 import ErrorModal from '../helpers/ErrorModal';
+import ConfirmationModal from '../helpers/ConfirmationModal';
 
 const Home = () => {
   const [firstName, setFirstName] = useState('');
@@ -13,35 +14,54 @@ const Home = () => {
   const [userName, setUsername] = useState('');
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [showConrirmationModal, setShowConrirmationModal] = useState(false);
+  const [userDict, setUserDict] = useState({});
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let userDict = {
+    setUserDict({
       first_name: firstName,
       last_name: lastName,
       email: email,
       password: password,
       username: userName,
-    };
-    apiRequest('users', 'POST', userDict).then((data) => {
-      if (data.errors) {
-        setErrorMessage('An unknown error occurred'); // Set error message
-        setShowErrorModal(true); // Show the error modal
-        toast.error("Error !");
-      }
     });
+    setShowConrirmationModal(true);
+
   };
 
-  const handleCloseModal = () => {
+  const handleCloseErrorModal = () => {
     setShowErrorModal(false); // Close the modal
+  };
+
+  const handleCloseConrirmationModalWithoutModifications = () => {
+    setShowConrirmationModal(false); // Close the modal
+  };
+
+  const handleCloseConrirmationModal = () => {
+    setShowConrirmationModal(false); // Close the modal
+    apiRequest('user', 'POST', userDict).then((data) => {
+      if (data.errors) {
+        setErrorMessage(data.errors);
+        setShowErrorModal(true);
+      } else {
+        toast.success('User created successfully!');
+      }
+    });
   };
 
   return (
     <div>
       <ErrorModal
         open={showErrorModal}
-        handleClose={handleCloseModal}
+        handleClose={handleCloseErrorModal}
         errorMessage={errorMessage}
+      />
+      <ConfirmationModal
+        open={showConrirmationModal}
+        handleCloseWithResult={handleCloseConrirmationModal}
+        handleCloseWithoutResult={handleCloseConrirmationModalWithoutModifications}
+        Message={"errorMessage"}
       />
       <Container component='main' maxWidth='xs' sx={{ textAlign: 'center', alignItems: 'center' }}>
         <form autoComplete='off' onSubmit={handleSubmit}>

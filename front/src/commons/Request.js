@@ -10,7 +10,7 @@ export async function apiRequest(url, method, body = '') {
     });
 
     const data = await response.json(); // Parse the response
-    console.log(data.detail === "Validation Error")
+
     if (data.detail === "Validation Error") {
       return {"errors": data.error}; // Return the error in case of validation error
     }
@@ -18,7 +18,7 @@ export async function apiRequest(url, method, body = '') {
     return data; // Return the parsed response
 
   } catch (error) {
-    throw {"error": error}; // Propagate the error if needed
+    return {"error": error}; // Propagate the error if needed
   }
 }
 

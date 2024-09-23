@@ -1,16 +1,20 @@
-from schemas.user import User
-from models.user_model import UserModel
-from typing import Annotated
-from sqlalchemy.orm import Session
-from starlette import status
-from config.database_connection import engine, SessionLocal
-from models.base_model import Base
+from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
+from starlette import status
+from typing import Annotated
+
+from config.database_connection import engine, SessionLocal
 from config.config import AppConfig
-from fastapi.exceptions import RequestValidationError
+
+from models.base_model import Base
+from models.user_model import UserModel
+from schemas.user import User
+
+from handlers import user_handler
 
 
 app = FastAPI()
@@ -59,7 +63,7 @@ async def login(request: Request):
     
     return await request.json()
 
-@app.post("/users", status_code=status.HTTP_201_CREATED)
+@app.post("/user", status_code=status.HTTP_201_CREATED)
 async def create_user(
     db: db_dependency,  # Dependency injection for the database session
     user_data: User  # User data from the request body
@@ -81,3 +85,17 @@ async def create_user(
         return user_data  # Return the created user data
     except Exception as exc:
         raise HTTPException(status_code=400, detail="Price must be non-negative")
+    
+@app.get("/users")
+async def get_users(db: db_dependency):
+    """
+    Get all users.
+
+    Args:
+        db (Session): The database session.
+
+    Returns:
+        List[User]: A list of all user data.
+    """
+    users = user_handler.get_list(db)
+    return users

@@ -1,11 +1,10 @@
 import '../style/global.css';
-import * as React from 'react';
-import { useKeycloak } from '@react-keycloak/web';
+import React, { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { Button, AppBar, Toolbar, Typography, IconButton, Box } from '@mui/material';
-import AuthContext from '../context/AuthContext';
+
 const Nav = () => {
-  const { keycloak } = useKeycloak();
-  const Auth = React.useContext(AuthContext);
+  const { authenticated, userInfo, logout, login } = useContext(AuthContext);
   const pages = [
     { name: 'HomePage', link: '/' },
     { name: 'SecurePage', link: '/secured' },
@@ -16,14 +15,6 @@ const Nav = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-
-  const login = () => {
-    keycloak.login();
-  };
-
-  const logout = () => {
-    keycloak.logout();
   };
 
   return (
@@ -57,14 +48,14 @@ const Nav = () => {
             ))}
           </Box>
           <>
-            {!keycloak.authenticated && (
+            {!authenticated  && (
               <Button variant='contained' onClick={() => login()}>
                 Login
               </Button>
             )}
-            {!!keycloak.authenticated && (
+            {!!authenticated  && (
               <Button variant='contained' onClick={() => logout()}>
-                Logout ({keycloak.tokenParsed.preferred_username})
+                Logout {userInfo && userInfo.preferred_username ? userInfo.preferred_username : ""}
               </Button>
             )}
           </>

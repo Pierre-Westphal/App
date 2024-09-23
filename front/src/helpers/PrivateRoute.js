@@ -1,14 +1,17 @@
-import { useKeycloak } from '@react-keycloak/web';
 import { Navigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../context/AuthContext';
+import { useContext } from 'react';
 
 const PrivateRoute = ({ children }) => {
-  const { keycloak } = useKeycloak();
+  const { authenticated } = useContext(AuthContext);
 
-  const isLoggedIn = keycloak.authenticated;
-  !isLoggedIn && toast.error('ERROR');
+  if (!authenticated) {
+    toast.error('ERROR');
+    return <Navigate to="/" />;
+  }
 
-  return isLoggedIn ? children : <Navigate to={'/'} />;
+  return children
 };
 
 export default PrivateRoute;

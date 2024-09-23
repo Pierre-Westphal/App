@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, Box, Typography, Button, Container } from '@mui/material';
 
 const ErrorModal = ({ open, handleClose, errorMessage }) => {
@@ -16,7 +16,7 @@ const ErrorModal = ({ open, handleClose, errorMessage }) => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '100%',
+            width: '50%',
             bgcolor: 'background.paper',
             border: '2px solid #f44336',
             boxShadow: 24,
@@ -26,9 +26,21 @@ const ErrorModal = ({ open, handleClose, errorMessage }) => {
           <Typography id="error-modal-title" variant="h6" component="h2" color="error">
             Error
           </Typography>
-          <Typography id="error-modal-description" sx={{ mt: 2 }}>
-            {errorMessage}
+          
+          <Typography component="ul" variant="body1" color="error">
+            {errorMessage && errorMessage.map((error, index) => (
+              <Typography component="li" key={index} sx={{ mb: 2 }}>
+                <Typography component="span" variant="subtitle1">
+                  {index + 1}. Field: {error.loc[1]}
+                </Typography>
+                <Typography component="ul" sx={{ ml: 2 }}>
+                <Typography component="li">Input: {error.input}</Typography>
+                <Typography component="li">Message: {error.msg}</Typography>
+            </Typography>
+              </Typography>
+            ))}
           </Typography>
+
           <Button variant="contained" color="error" onClick={handleClose} sx={{ mt: 2 }}>
             Close
           </Button>
