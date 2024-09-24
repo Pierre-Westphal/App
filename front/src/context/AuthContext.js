@@ -6,15 +6,24 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     keycloak.init({ onLoad: 'login-required' }).then((auth) => {
+      console.log('Keycloak authentication status:', auth);
       setAuthenticated(auth);
       if (auth) {
         keycloak.loadUserInfo().then((user) => {
+          console.log('User info:', user);
           setUserInfo(user);
+          setLoading(false);
         });
+      } else {
+        setLoading(false);
       }
+    }).catch(error => {
+      console.error('Failed to initialize Keycloak', error);
+      setLoading(false);
     });
   }, []);
 
@@ -22,9 +31,9 @@ export const AuthProvider = ({ children }) => {
     keycloak.logout();
   };
 
-  const login = () => {
-    keycloak.login();
-  };
+  if (loading) {
+    return <div>Loading...</div>;  // Afficher un indicateur de chargement pendant l'initialisation
+  }
 
   return (
     <AuthContext.Provider value={{ authenticated, userInfo, logout }}>

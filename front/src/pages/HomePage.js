@@ -5,7 +5,7 @@ import { apiRequest } from '../commons/Request';
 const Home = () => {
   const [result, setResult] = React.useState('');
 
-  const resultHealth = (e) => {
+  const resultHealth = () => {
     apiRequest('health', 'GET').then((data) => {
       setResult(data);
     });

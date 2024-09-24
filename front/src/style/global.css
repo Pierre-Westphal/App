@@ -1,15 +1,3 @@
-.login-button {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-}
-
-.margin-table {
-  text-align: center;
-}
-
-.user-creation-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.secured {
+  margin-left: 20rem;
 }

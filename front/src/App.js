@@ -1,11 +1,10 @@
 import React from 'react';
-import { ReactKeycloakProvider } from '@react-keycloak/web';
-import keycloakConfig from './Keycloak/Keycloak';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Nav from './components/Nav';
 import WelcomePage from './pages/HomePage';
 import SecuredPage from './pages/SecurePage';
 import UserCreationPage from './pages/UserCreationPage';
+import UsersPage from './pages/UsersPage';
 import PrivateRoute from './helpers/PrivateRoute';
 import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from './context/AuthContext';
@@ -19,7 +18,8 @@ function App() {
           <Nav />
           <Routes>
             <Route exact path='/' element={<WelcomePage />} />
-            <Route exact path='/form' element={<UserCreationPage />} />
+            <Route exact path='/userCreation' element={<UserCreationPage />} />
+            <Route exact path='/users' element={<UsersPage />} />
             <Route
               path='/secured'
               element={

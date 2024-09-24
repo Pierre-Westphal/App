@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import ErrorModal from '../helpers/ErrorModal';
 import ConfirmationModal from '../helpers/ConfirmationModal';
 
-const Home = () => {
+const UserCreationForm = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -59,9 +59,10 @@ const Home = () => {
       />
       <ConfirmationModal
         open={showConrirmationModal}
+        Title={"Confirmation"}
         handleCloseWithResult={handleCloseConrirmationModal}
         handleCloseWithoutResult={handleCloseConrirmationModalWithoutModifications}
-        Message={"errorMessage"}
+        Message={userDict}
       />
       <Container component='main' maxWidth='xs' sx={{ textAlign: 'center', alignItems: 'center' }}>
         <form autoComplete='off' onSubmit={handleSubmit}>
@@ -92,4 +93,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default UserCreationForm;

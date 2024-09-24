@@ -4,14 +4,14 @@ import { AuthContext } from '../context/AuthContext';
 import { useContext } from 'react';
 
 const PrivateRoute = ({ children }) => {
-  const { authenticated } = useContext(AuthContext);
+  const { authenticated, loading } = useContext(AuthContext);
+  console.log(authenticated);
 
-  if (!authenticated) {
-    toast.error('ERROR');
-    return <Navigate to="/" />;
+  if (loading) {
+    return <div>Loading...</div>;  // Afficher l'indicateur de chargement
   }
-
-  return children
+  console.log(children)
+  return authenticated ? children : <Navigate to="/" />;
 };
 
 export default PrivateRoute;

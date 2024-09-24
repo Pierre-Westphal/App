@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
-const confirmationModal = ({ open, handleCloseWithResult, handleCloseWithoutResult, Message }) => {
+const confirmationModal = ({ open, handleCloseWithResult, handleCloseWithoutResult, Title, Message }) => {
 
     return (
         <React.Fragment>
@@ -13,18 +13,26 @@ const confirmationModal = ({ open, handleCloseWithResult, handleCloseWithoutResu
                 aria-describedby="alert-dialog-description"
             >
             <DialogTitle id="alert-dialog-title">
-                {"Use Google's location service?"}
+                {Title}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    {Message}
+                    <p>
+                        <ul>
+                            {Object.entries(Message).map(([key, value]) => (
+                            <li key={key}>
+                                <strong>{key}:</strong> {key === 'password' ? '********' : value}
+                            </li>
+                            ))}
+                        </ul>
+                    </p>
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseWithResult}>Agree</Button>
                 <Button onClick={handleCloseWithoutResult} autoFocus>
                     Disagree
                 </Button>
+                <Button onClick={handleCloseWithResult}>Agree</Button>
             </DialogActions>
             </Dialog>
         </React.Fragment>
