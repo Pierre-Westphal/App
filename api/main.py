@@ -1,11 +1,11 @@
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from fastapi import FastAPI, HTTPException, Request, Depends
+from fastapi import FastAPI, HTTPException, Request, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from starlette import status
-from typing import Annotated
+from typing import Annotated, List, Optional
 
 from config.database_connection import engine, SessionLocal
 from config.config import AppConfig
@@ -13,6 +13,7 @@ from config.config import AppConfig
 from models.base_model import Base
 from models.user_model import UserModel
 from schemas.user import User
+from managers.keycloak_manager import KeycloakManager
 
 from handlers import user_handler
 
@@ -86,8 +87,8 @@ async def create_user(
     except Exception as exc:
         raise HTTPException(status_code=400, detail="Price must be non-negative")
     
-@app.get("/users")
-async def get_users(db: db_dependency):
+@app.get("/users", response_model=List[User])
+async def get_users(db: db_dependency, q: Optional[str] = Query(None)):
     """
     Get all users.
 
@@ -97,5 +98,6 @@ async def get_users(db: db_dependency):
     Returns:
         List[User]: A list of all user data.
     """
-    users = user_handler.get_list(db)
+    print(KeycloakManager().get_users())
+    users = user_handler.get_list(db, q=q)
     return users

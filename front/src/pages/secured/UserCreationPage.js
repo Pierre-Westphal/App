@@ -1,10 +1,11 @@
-import '../style/global.css';
+import '../../style/global.css';
 import React, { useState } from 'react';
 import { TextField, Button, Grid, Container } from '@mui/material';
-import { apiRequest } from '../commons/Request';
+import { apiRequest } from '../../commons/Request';
 import { toast } from 'react-toastify';
-import ErrorModal from '../helpers/ErrorModal';
-import ConfirmationModal from '../helpers/ConfirmationModal';
+import ErrorModal from '../../helpers/ErrorModal';
+import ConfirmationModal from '../../helpers/ConfirmationModal';
+import LeftMenu from '../../menus/SecuredSubLetfMenu';
 
 const UserCreationForm = () => {
   const [firstName, setFirstName] = useState('');
@@ -52,6 +53,7 @@ const UserCreationForm = () => {
 
   return (
     <div>
+      <LeftMenu />
       <ErrorModal
         open={showErrorModal}
         handleClose={handleCloseErrorModal}

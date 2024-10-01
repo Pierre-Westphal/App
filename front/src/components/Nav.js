@@ -2,16 +2,10 @@ import '../style/global.css';
 import React, { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Button, AppBar, Toolbar, Typography, IconButton, Box } from '@mui/material';
-import zIndex from '@mui/material/styles/zIndex';
 
 const Nav = () => {
   const { authenticated, userInfo, logout, login } = useContext(AuthContext);
-  const pages = [
-    { name: 'HomePage', link: '/' },
-    { name: 'SecurePage', link: '/secured' },
-    { name: 'user creation', link: '/userCreation' },
-    { name: 'users', link: '/users' },
-  ];
+  const pages = [{name: 'Home', link: '/'}];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 

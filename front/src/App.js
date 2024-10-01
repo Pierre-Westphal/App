@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Nav from './components/Nav';
-import WelcomePage from './pages/HomePage';
-import SecuredPage from './pages/SecurePage';
-import UserCreationPage from './pages/UserCreationPage';
-import UsersPage from './pages/UsersPage';
+import SecuredPage from './pages/secured/SecurePage';
+import ProfilePage from './pages/secured/ProfilePage';
+import UserCreationPage from './pages/secured/UserCreationPage';
+import UsersPage from './pages/secured/UsersPage';
 import PrivateRoute from './helpers/PrivateRoute';
+import SettingsPage from './pages/secured/SettingsPage';
 import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from './context/AuthContext';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,11 +18,12 @@ function App() {
         <BrowserRouter>
           <Nav />
           <Routes>
-            <Route exact path='/' element={<WelcomePage />} />
-            <Route exact path='/userCreation' element={<UserCreationPage />} />
-            <Route exact path='/users' element={<UsersPage />} />
+            <Route exact path='/secured/userCreation' element={<UserCreationPage />} />
+            <Route exact path='/secured/users' element={<UsersPage />} />
+            <Route exact path='/secured/settings' element={<SettingsPage />} />
+            <Route exact path='/secured/profile' element={<ProfilePage />} />
             <Route
-              path='/secured'
+              path='/'
               element={
                 <PrivateRoute>
                   <SecuredPage />

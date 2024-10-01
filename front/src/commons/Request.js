@@ -1,6 +1,12 @@
-export async function apiRequest(url, method, body = '') {
+export async function apiRequest(url, method, body = '', params = {}) {
   try {
-    const response = await fetch(`http://localhost:8000/${url}`, {
+    let base_url = `http://localhost:8000/${url}`;
+    
+    if (params.q) {
+      base_url = base_url + '?' + new URLSearchParams(params).toString();
+    }
+
+    const response = await fetch(base_url, {
       method: method,
       headers: {
         'Content-Type': 'application/json',

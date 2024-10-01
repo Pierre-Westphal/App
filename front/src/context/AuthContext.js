@@ -10,11 +10,9 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     keycloak.init({ onLoad: 'login-required' }).then((auth) => {
-      console.log('Keycloak authentication status:', auth);
       setAuthenticated(auth);
       if (auth) {
         keycloak.loadUserInfo().then((user) => {
-          console.log('User info:', user);
           setUserInfo(user);
           setLoading(false);
         });

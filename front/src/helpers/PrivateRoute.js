@@ -5,12 +5,10 @@ import { useContext } from 'react';
 
 const PrivateRoute = ({ children }) => {
   const { authenticated, loading } = useContext(AuthContext);
-  console.log(authenticated);
 
   if (loading) {
     return <div>Loading...</div>;  // Afficher l'indicateur de chargement
   }
-  console.log(children)
   return authenticated ? children : <Navigate to="/" />;
 };
 

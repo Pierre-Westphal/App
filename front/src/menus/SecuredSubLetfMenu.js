@@ -1,18 +1,17 @@
 import React from 'react';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, AppBar, CssBaseline, Box, Typography, IconButton, Button } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SettingsIcon from '@mui/icons-material/Settings';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, CssBaseline, Box } from '@mui/material';
+import  {Group, Settings, AccountCircle, Home} from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 const AppLayout = () => {
   const menuItems = [
-    { text: 'Home', icon: <HomeIcon />, link: '/' },
-    { text: 'Profile', icon: <AccountCircleIcon />, link: '/profile' },
-    { text: 'Settings', icon: <SettingsIcon />, link: '/settings' },
+    { text: 'Home', icon: <Home />, link: '/' },
+    { text: 'Profile', icon: <AccountCircle />, link: '/secured/profile' },
+    { text: 'Users', icon: <Group />, link: '/secured/users' },
+    { text: 'User Creation', icon: <AccountCircle />, link: '/secured/userCreation' },
+    { text: 'Settings', icon: <Settings />, link: '/secured/settings' },
   ];
 
   return (
