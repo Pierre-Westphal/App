@@ -17,19 +17,17 @@ const confirmationModal = ({ open, handleCloseWithResult, handleCloseWithoutResu
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    <p>
-                        <ul>
-                            {Object.entries(Message).map(([key, value]) => (
+                    <ul>
+                        {Object.entries(Message).map(([key, value]) => (
                             <li key={key}>
                                 <strong>{key}:</strong> {key === 'password' ? '********' : value}
                             </li>
-                            ))}
-                        </ul>
-                    </p>
+                        ))}
+                    </ul>
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handleCloseWithoutResult} autoFocus>
+                <Button onClick={handleCloseWithoutResult}>
                     Disagree
                 </Button>
                 <Button onClick={handleCloseWithResult}>Agree</Button>

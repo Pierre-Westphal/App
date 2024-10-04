@@ -33,7 +33,7 @@ const AppLayout = () => {
         <Toolbar />
         <List>
           {menuItems.map((item, index) => (
-            <ListItem button key={index} component={Link} to={item.link}>
+            <ListItem button="true" key={index} component={Link} to={item.link}>
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>

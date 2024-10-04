@@ -8,7 +8,7 @@ export async function apiRequest(url, method, body = '', params = {}) {
 
     let access_token = localStorage.getItem('access_token');
     let refresh_token = localStorage.getItem('refresh_token');
-    console.log(base_url, access_token, refresh_token)
+
     const response = await fetch(base_url, {
       method: method,
       headers: {

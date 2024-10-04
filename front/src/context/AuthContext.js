@@ -13,9 +13,9 @@ export const AuthProvider = ({ children }) => {
       setAuthenticated(auth);
 
       if (auth) {
-        console.log(keycloak)
         localStorage.setItem('access_token', keycloak.token);
         localStorage.setItem('refresh_token', keycloak.refreshToken);
+        
         keycloak.loadUserInfo().then((user) => {
           setUserInfo(user);
           setLoading(false);
@@ -39,6 +39,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = () => {
     keycloak.login();
+    keycloak.loadUserInfo().then((user) => {
+      setUserInfo(user);
+      setLoading(false);
+    });
   };
 
   if (loading) {
