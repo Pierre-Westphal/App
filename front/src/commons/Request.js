@@ -6,11 +6,16 @@ export async function apiRequest(url, method, body = '', params = {}) {
       base_url = base_url + '?' + new URLSearchParams(params).toString();
     }
 
+    let access_token = localStorage.getItem('access_token');
+    let refresh_token = localStorage.getItem('refresh_token');
+    console.log(base_url, access_token, refresh_token)
     const response = await fetch(base_url, {
       method: method,
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        'refresh_token': refresh_token,
+        'Authorization': `Bearer ${access_token}`
       },
       body: body ? JSON.stringify(body) : undefined,
     });
@@ -26,8 +31,4 @@ export async function apiRequest(url, method, body = '', params = {}) {
   } catch (error) {
     return {"error": error}; // Propagate the error if needed
   }
-}
-
-export function validationError(error) {
-  return "ok"
 }

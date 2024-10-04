@@ -9,9 +9,13 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    keycloak.init({ onLoad: 'login-required' }).then((auth) => {
+    keycloak.init({ onLoad: 'login-required', scope: 'openid email profile' }).then((auth) => {
       setAuthenticated(auth);
+
       if (auth) {
+        console.log(keycloak)
+        localStorage.setItem('access_token', keycloak.token);
+        localStorage.setItem('refresh_token', keycloak.refreshToken);
         keycloak.loadUserInfo().then((user) => {
           setUserInfo(user);
           setLoading(false);
@@ -27,6 +31,14 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     keycloak.logout();
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    setAuthenticated(false);
+    setUserInfo(null);
+  };
+
+  const login = () => {
+    keycloak.login();
   };
 
   if (loading) {
@@ -34,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ authenticated, userInfo, logout }}>
+    <AuthContext.Provider value={{ authenticated, userInfo, logout, login }}>
       {children}
     </AuthContext.Provider>
   );

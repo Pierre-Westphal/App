@@ -16,17 +16,11 @@ class KeycloakManager:
         self.client_id = config.SSO_CLIENT_ID
         self.sso_admin_username = config.SSO_ADMIN_USERNAME
         self.sso_admin_password = config.SSO_ADMIN_PASSWORD
-        self.KEYCLOAK_PUBLIC_KEY_URL = f"{ self.sso_url}auth/realms/{self.sso_realm}/protocol/openid-connect/certs"
-        self.ALGORITHM = "RS256"
-        self.PUBLIC_KEY = None
         self.tokens = None
 
     async def verify_token_from_header(self, request: Request):
         # Extraire l'en-tête Authorization de la requête
         authorization: str = request.headers.get("Authorization")
-        print(request.headers)
-        print(authorization)
-
         # Vérifier si l'en-tête est fourni
         if authorization is None or not authorization.startswith("Bearer "):
             raise HTTPException(
@@ -34,15 +28,27 @@ class KeycloakManager:
                 detail="En-tête d'authentification manquant ou malformé.",
                 headers={"WWW-Authenticate": "Bearer"},
             )
-    
+        
+    def is_token_valid(self, access_token):
+        
+        headers = {
+            "Authorization": f"Bearer {access_token}",
+            "Content-Type": "application/json"
+        }
+        
+        url = f'{self.sso_url}realms/{self.sso_realm}/protocol/openid-connect/userinfo'
+        
+        response = requests.get(url, headers=headers)
+
+        return response.status_code == 200
+
     def get_users(self):
         """
         Get a list of users in the realm.
         """
         if not self.tokens:
             self.get_token()
-        print("======================")
-        print(self.tokens)
+
         url = f"{self.sso_url}admin/realms/{self.sso_realm}/users"
         headers = {
             'Authorization': f'Bearer {self.tokens["access_token"]}',
@@ -64,26 +70,30 @@ class KeycloakManager:
         """
         Get an access token using the client credentials or admin credentials.
         """
-        url = f"{self.sso_url}realms/{self.sso_realm}/protocol/openid-connect/token"
-        data = {
-            'client_id': self.client_id,
-            'username': self.sso_admin_username,
-            'password': self.sso_admin_password,
-            'grant_type': 'password'
-        }
+        response = None
 
         try:
-            response = requests.post(url, data=data)
-            response.raise_for_status()
-
-            resp = response.json()
-            self.tokens = {"access_token": resp.get('access_token'), "refresh_token": resp.get('refresh_token')}
-            return self.tokens
+            if self.tokens:
+                response = self.is_token_valid(self.tokens['access_token'])
+            if not self.tokens or response.status_code > 400:
+                
+                url = f"{self.sso_url}realms/{self.sso_realm}/protocol/openid-connect/token"
+        
+                data = {
+                    'client_id': self.client_id,
+                    'username': self.sso_admin_username,
+                    'password': self.sso_admin_password,
+                    'grant_type': 'password'
+                }
+                
+                response = requests.post(url, data=data).json()
+                self.tokens = {"access_token": response.get('access_token'), "refresh_token": response.get('refresh_token')}
+        
         except HTTPError as http_err:
             print(f"HTTP error occurred: {http_err}")
+        
         except Exception as err:
             print(f"Other error occurred: {err}")
-        return None
     
     def create_user(self, user_data):
         """

@@ -14,11 +14,16 @@ from models.base_model import Base
 from models.user_model import UserModel
 from schemas.user import User
 from managers.keycloak_manager import KeycloakManager
+from middlewares.auth_middleware import AuthMiddleware
 
 from handlers import user_handler
 
 
 app = FastAPI()
+
+keycloak_manager = KeycloakManager()
+
+app.add_middleware(AuthMiddleware, keycloak_manager=keycloak_manager)
 
 Base.metadata.create_all(bind=engine)
 
@@ -41,15 +46,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.exception_handler(RequestValidationError)
-async def validation_exception_handler(request: Request, exc: RequestValidationError):
-    error_message = {"detail": "Validation Error", "error": exc.errors()}
-    return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        content=jsonable_encoder(error_message),
-    )
-
 
 @app.get("/")
 def root():
@@ -98,6 +94,6 @@ async def get_users(db: db_dependency, q: Optional[str] = Query(None)):
     Returns:
         List[User]: A list of all user data.
     """
-    print(KeycloakManager().get_users())
+
     users = user_handler.get_list(db, q=q)
     return users
