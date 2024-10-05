@@ -23,7 +23,7 @@ services:
     environment:
       SSO_ADMIN_USERNAME: admin
       SSO_ADMIN_PASSWORD: admin
-      SSO_URL: http://host.docker.internal:8088/
+      SSO_URL: http://keycloak-server:8080/
       SSO_REALM: local
       SSO_CLIENT_ID: client
       WWW_URL: http://localhost:3000
@@ -81,6 +81,7 @@ services:
       - KC_HOSTNAME_STRICT_BACKCHANNEL=false
       - KC_HTTP_ENABLED=true
       - KC_HOSTNAME_STRICT_HTTPS=false
+      - PROXY_ADDRESS_FORWARDING=true
     depends_on:
       keycloak-db:
         condition: service_healthy

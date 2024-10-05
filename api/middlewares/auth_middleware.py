@@ -20,17 +20,16 @@ class AuthMiddleware(BaseHTTPMiddleware):
             )
 
     async def verify_token_from_header(self, request: Request):
-        # Extraire l'en-tête Authorization de la requête
         
         access_token: str = request.headers.get("Authorization")
         refresh_token: str = request.headers.get("refresh_token")
         
-        self.keycloak_manager.tokens = {"access_token": access_token.split(" ")[1], "refresh_token": refresh_token}
-        # Vérifier si le jeton est valide
-        
+        # self.keycloak_manager.tokens = {"access_token": access_token.split(" ")[1], "refresh_token": refresh_token}
+
         if not self.keycloak_manager.is_token_valid(access_token):
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token invalide.",
-                headers={"WWW-Authenticate": "Bearer"},
-            )
+            print("ERROR TOKEN INVALIDE")
+            # raise HTTPException(
+            #     status_code=status.HTTP_401_UNAUTHORIZED,
+            #     detail="Token invalide.",
+            #     headers={"WWW-Authenticate": "Bearer"},
+            # )

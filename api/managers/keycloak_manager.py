@@ -42,22 +42,22 @@ class KeycloakManager:
 
         return response.status_code == 200
 
-    def get_users(self):
+    def get_users(self, params=None, headers=None):
         """
         Get a list of users in the realm.
         """
-        if not self.tokens:
+        print(headers, self.tokens)
+        if not headers: # self.tokens
             self.get_token()
+            headers = {
+                'Authorization': f'Bearer {self.tokens["access_token"]}',
+                'Refresh-Token': self.tokens["refresh_token"],
+            }
 
         url = f"{self.sso_url}admin/realms/{self.sso_realm}/users"
-        headers = {
-            'Authorization': f'Bearer {self.tokens["access_token"]}',
-            'Refresh-Token': self.tokens["refresh_token"],
-            'Content-Type': 'application/json'
-        }
 
         try:
-            response = requests.get(url, headers=headers)
+            response = requests.get(url, headers=headers, params=params)
             response.raise_for_status()
             return response.json()
         except HTTPError as http_err:
@@ -73,21 +73,21 @@ class KeycloakManager:
         response = None
 
         try:
-            if self.tokens:
-                response = self.is_token_valid(self.tokens['access_token'])
-            if not self.tokens or response.status_code > 400:
+            # if self.tokens:
+            #     response = self.is_token_valid(self.tokens['access_token'])
+            # if not self.tokens or response.status_code > 400:
                 
-                url = f"{self.sso_url}realms/{self.sso_realm}/protocol/openid-connect/token"
-        
-                data = {
-                    'client_id': self.client_id,
-                    'username': self.sso_admin_username,
-                    'password': self.sso_admin_password,
-                    'grant_type': 'password'
-                }
-                
-                response = requests.post(url, data=data).json()
-                self.tokens = {"access_token": response.get('access_token'), "refresh_token": response.get('refresh_token')}
+            url = f"{self.sso_url}realms/{self.sso_realm}/protocol/openid-connect/token"
+            print(url)
+            data = {
+                'client_id': self.client_id,
+                'username': self.sso_admin_username,
+                'password': self.sso_admin_password,
+                'grant_type': 'password'
+            }
+            
+            response = requests.post(url, data=data).json()
+            self.tokens = {"access_token": response.get('access_token'), "refresh_token": response.get('refresh_token')}
         
         except HTTPError as http_err:
             print(f"HTTP error occurred: {http_err}")

@@ -22,8 +22,8 @@ export async function apiRequest(url, method, body = '', params = {}) {
 
     const data = await response.json(); // Parse the response
 
-    if (data.detail === "Validation Error") {
-      return {"errors": data.error}; // Return the error in case of validation error
+    if (response.status > 400 || data.detail === "Validation Error") {
+      return {"errors": data.detail}; // Return the error in case of validation error
     }
 
     return data; // Return the parsed response
