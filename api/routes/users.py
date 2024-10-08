@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from config.database_connection import get_db, db_dependency
 
-from models.user_model import UserModel
+from helpers import keycloak_helper
 from schemas.user import User
 from managers.keycloak_manager import KeycloakManager
 
@@ -16,10 +16,22 @@ get_db()
 
 @router.post("/user", status_code=status.HTTP_201_CREATED)
 async def create_user(db: db_dependency, user_data: User, request: Request):
+
     user = KeycloakManager().get_users(params={"username": user_data.username})
     print(user)
+    if len(user) > 0:
+        raise HTTPException(status_code=400, detail="User already exists")
+    
     try:
-        return user_handler.create(db, user_data) 
+        _, keycloak_user = KeycloakManager().create_user(keycloak_helper.create_user_dict_for_keycloak(user_data))
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail="An error occurred while creating the user")
+
+    try:
+        user_data.sso_user_id = keycloak_user["id"]
+        test = user_handler.create(db, user_data).to_dict()
+        print(test)
+        return test 
     except Exception as exc:
         raise HTTPException(status_code=400, detail="An error occurred while creating the user")
     

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from config.database_connection import get_db
@@ -36,8 +36,3 @@ def root():
 @app.get("/health")
 def health():
     return {"message": "API Health"}
-
-@app.post("/login")
-async def login(request: Request):
-    
-    return await request.json()

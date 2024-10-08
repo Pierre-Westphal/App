@@ -22,14 +22,10 @@ class AuthMiddleware(BaseHTTPMiddleware):
     async def verify_token_from_header(self, request: Request):
         
         access_token: str = request.headers.get("Authorization")
-        refresh_token: str = request.headers.get("refresh_token")
         
-        # self.keycloak_manager.tokens = {"access_token": access_token.split(" ")[1], "refresh_token": refresh_token}
-
         if not self.keycloak_manager.is_token_valid(access_token):
-            print("ERROR TOKEN INVALIDE")
-            # raise HTTPException(
-            #     status_code=status.HTTP_401_UNAUTHORIZED,
-            #     detail="Token invalide.",
-            #     headers={"WWW-Authenticate": "Bearer"},
-            # )
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token invalide.",
+                headers={"WWW-Authenticate": "Bearer"},
+            )

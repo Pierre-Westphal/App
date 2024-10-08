@@ -1,3 +1,5 @@
-from api.managers.keycloak_manager import KeycloakManager
+import logging
 
-keycloak_manager = KeycloakManager()
+from api.managers.log_manager import LogManager
+
+LogManager(name=__name__, log_file='app.log', level=logging.DEBUG)

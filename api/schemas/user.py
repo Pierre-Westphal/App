@@ -1,12 +1,15 @@
 from pydantic import BaseModel
 from pydantic.functional_validators import field_validator
+from typing import Optional
+
 
 class User(BaseModel):
-    first_name:str
-    last_name:str
-    username:str
-    email:str
-    password:str
+    first_name: str
+    last_name: str
+    username: str
+    email: str
+    password: str
+    sso_user_id: Optional[str] = None
  
     @field_validator("password")
     def validate_password(cls, v):
