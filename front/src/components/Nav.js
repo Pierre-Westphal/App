@@ -1,7 +1,8 @@
 import '../style/global.css';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Button, AppBar, Toolbar, Typography, IconButton, Box } from '@mui/material';
+import { apiRequest } from "../commons/Request";
 
 const Nav = () => {
   const { authenticated, userInfo, logout, login } = useContext(AuthContext);
@@ -12,6 +13,13 @@ const Nav = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  useEffect(() => {
+    console.log(userInfo)
+    apiRequest(`user-sso-user-id/${userInfo.sub}`, 'GET', null).then((response) => {
+      localStorage.setItem('languageCode', response)
+    })
+  }, []);
 
   return (
     <>

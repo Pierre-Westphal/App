@@ -8,8 +8,9 @@ class User(BaseModel):
     last_name: str
     username: str
     email: str
-    password: str
+    password: Optional[str] = None
     sso_user_id: Optional[str] = None
+    language: str
  
     @field_validator("password")
     def validate_password(cls, v):

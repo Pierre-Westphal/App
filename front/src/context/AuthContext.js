@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
       if (auth) {
         localStorage.setItem('access_token', keycloak.token);
         localStorage.setItem('refresh_token', keycloak.refreshToken);
-        
+              
         keycloak.loadUserInfo().then((user) => {
           setUserInfo(user);
           setLoading(false);
