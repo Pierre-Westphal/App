@@ -1,19 +1,24 @@
 import '../../style/global.css';
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { apiRequest } from '../../commons/Request';
 import TextField from '@mui/material/TextField';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 import LeftMenu from '../../menus/SecuredSubLetfMenu';
 
 const UsersPage = () => {
   const [result, setResult] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState('');
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
     resultUsers();
   };
-  
+
+  const handleUserCreation = () => {
+    navigate('/secured/userCreation');
+  }
 
   const resultUsers = (q = searchTerm) => {
     apiRequest('users', 'GET', null, {'q': q}).then((data) => {
@@ -36,7 +41,14 @@ const UsersPage = () => {
           value={searchTerm}
           onChange={handleChange}
           fullWidth
-          />
+        />
+        <Button 
+          sx={{ width: 150, height: 40, marginLeft: 5, marginTop:3 }} 
+          variant="outlined" 
+          onClick={() => handleUserCreation()}
+        >
+          User Creation
+        </Button>
         <br />
         <br />
         <br />

@@ -15,7 +15,6 @@ const Nav = () => {
   };
 
   useEffect(() => {
-    console.log(userInfo)
     apiRequest(`user-sso-user-id/${userInfo.sub}`, 'GET', null).then((response) => {
       localStorage.setItem('languageCode', response)
     })
