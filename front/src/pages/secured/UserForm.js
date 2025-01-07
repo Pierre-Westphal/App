@@ -1,6 +1,6 @@
 import '../../style/global.css';
 import React, { useState } from 'react';
-import { TextField, Button, Grid, Container } from '@mui/material';
+import { Grid, Select, MenuItem, FormControl, InputLabel, Container, Button, TextField } from '@mui/material';
 import { apiRequest } from '../../commons/Request';
 import { toast } from 'react-toastify';
 import ErrorModal from '../../helpers/ErrorModal';
@@ -8,7 +8,6 @@ import ConfirmationModal from '../../helpers/ConfirmationModal';
 import LeftMenu from '../../menus/SecuredSubLetfMenu';
 
 const UserForm = ({typeForm, userProps}) => {
-    console.log(userProps);
     const [firstName, setFirstName] = useState(userProps && userProps.firstName ? userProps.firstName : '');
     const [lastName, setLastName] = useState(userProps && userProps.lastName ? userProps.lastName : '');
     const [email, setEmail] = useState(userProps && userProps.email ? userProps.email : '');
@@ -18,6 +17,11 @@ const UserForm = ({typeForm, userProps}) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [showConrirmationModal, setShowConrirmationModal] = useState(false);
     const [userDict, setUserDict] = useState({});
+    const [language, setLanguage] = useState(userProps && userProps.language ? userProps.language : 'FR'); // Valeur par défaut : FR
+    
+    const handleLanguageChange = (e) => {
+      setLanguage(e.target.value);
+    };
   
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -27,6 +31,7 @@ const UserForm = ({typeForm, userProps}) => {
         email: email,
         password: password,
         username: userName,
+        language: language
       });
       setShowConrirmationModal(true);
   
@@ -42,6 +47,7 @@ const UserForm = ({typeForm, userProps}) => {
   
     const handleCloseConrirmationModal = () => {
       setShowConrirmationModal(false); // Close the modal
+      console.log(userDict)
       apiRequest('user', 'POST', userDict).then((data) => {
         if (data.errors) {
           setErrorMessage(data.errors);
@@ -88,13 +94,27 @@ const UserForm = ({typeForm, userProps}) => {
               <Grid item xs={12}>
                 <TextField label='Email' type='email' required variant='outlined' value={email ? email : ''} onChange={(e) => setEmail(e.target.value)} sx={{ mb: 3 }} fullWidth />
               </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth variant="outlined" sx={{ mb: 3 }}>
+                  <InputLabel id="language-select-label">Language</InputLabel>
+                  <Select
+                    labelId="language-select-label"
+                    value={language}
+                    onChange={handleLanguageChange}
+                    label="Language"
+                  >
+                    <MenuItem value="FR">French</MenuItem>
+                    <MenuItem value="EN">English</MenuItem>
+                  </Select>
+                </FormControl>
+            </Grid>
             </Grid>
             {typeForm === 'edit' && (
                 <Button variant='outlined' color='secondary' type='submit'>
                   Update
                 </Button>
             )}
-            {typeForm === 'create' && (
+            {typeForm === 'creation' && (
                 <Button variant='outlined' color='secondary' type='submit'>
                   Create
                 </Button>

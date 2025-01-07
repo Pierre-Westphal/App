@@ -3,8 +3,7 @@ from models.user_model import UserModel
 from managers.keycloak_manager import KeycloakManager
 
 def create(db: Session, user_data: dict):
-        
-        user = UserModel(**user_data.dict()) 
+        user = UserModel(**user_data.dict(exclude={"password"})) 
         db.add(user) 
         db.commit()
         return user

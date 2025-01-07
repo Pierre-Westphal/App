@@ -21,7 +21,7 @@ services:
     environment:
       SSO_ADMIN_USERNAME: admin
       SSO_ADMIN_PASSWORD: admin
-      SSO_URL: http://keycloak-server:8080/
+      SSO_URL: http://host.docker.internal:8080/
       SSO_REALM: local
       SSO_CLIENT_ID: client
       WWW_URL: http://localhost:3000

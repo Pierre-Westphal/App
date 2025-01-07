@@ -1,5 +1,7 @@
 import LeftMenu from '../../menus/SecuredSubLetfMenu';
 import UserForm from './UserForm';
+import React from 'react';
+
 
 const UserModificationPage = () => {
     const userDict = {

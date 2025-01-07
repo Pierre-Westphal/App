@@ -69,7 +69,7 @@ class KeycloakManager:
             # if self.tokens:
             #     response = self.is_token_valid(self.tokens['access_token'])
             # if not self.tokens or response.status_code > 400:
-                
+
             url = f"{self.sso_url}realms/{self.sso_realm}/protocol/openid-connect/token"
             data = {
                 'client_id': self.client_id,

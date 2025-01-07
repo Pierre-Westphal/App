@@ -18,8 +18,8 @@ get_db()
 async def create_user(db: db_dependency, user_data: User, request: Request):
 
     user = KeycloakManager().get_users(params={"username": user_data.username})
-    print(user)
-    if len(user) > 0:
+
+    if user and len(user) > 0:
         raise HTTPException(status_code=400, detail="User already exists")
     
     try:
