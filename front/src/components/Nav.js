@@ -16,7 +16,12 @@ const Nav = () => {
 
   useEffect(() => {
     apiRequest(`user-sso-user-id/${userInfo.sub}`, 'GET', null).then((response) => {
-      localStorage.setItem('languageCode', response)
+      localStorage.setItem('sso_user_id', response.sso_user_id)
+      localStorage.setItem('firstName', response.first_name)
+      localStorage.setItem('lastName', response.last_name)
+      localStorage.setItem('languageCode', response.language)
+      localStorage.setItem('username', response.username)
+      localStorage.setItem('email', response.email)
     })
   }, []);
 

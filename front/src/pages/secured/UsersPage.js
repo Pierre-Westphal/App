@@ -20,6 +20,10 @@ const UsersPage = () => {
     navigate('/secured/userCreation');
   }
 
+  const handleUserModification = () => {
+    navigate('/secured/userModification');
+  }
+
   const resultUsers = (q = searchTerm) => {
     apiRequest('users', 'GET', null, {'q': q}).then((data) => {
       setResult(data);
@@ -48,6 +52,13 @@ const UsersPage = () => {
           onClick={() => handleUserCreation()}
         >
           User Creation
+        </Button>
+        <Button 
+          sx={{ width: 150, height: 40, marginLeft: 5, marginTop:3 }} 
+          variant="outlined" 
+          onClick={() => handleUserModification()}
+        >
+          User Modification
         </Button>
         <br />
         <br />

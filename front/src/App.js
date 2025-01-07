@@ -4,6 +4,7 @@ import Nav from './components/Nav';
 import SecuredPage from './pages/secured/SecurePage';
 import ProfilePage from './pages/secured/ProfilePage';
 import UserCreationPage from './pages/secured/UserCreationPage';
+import UserModificationPage from './pages/secured/UserModificationPage';
 import UsersPage from './pages/secured/UsersPage';
 import PrivateRoute from './helpers/PrivateRoute';
 import SettingsPage from './pages/secured/SettingsPage';
@@ -19,6 +20,7 @@ function App() {
           <Nav />
           <Routes>
             <Route exact path='/secured/userCreation' element={<UserCreationPage />} />
+            <Route exact path='/secured/userModification' element={<UserModificationPage />} />
             <Route exact path='/secured/users' element={<UsersPage />} />
             <Route exact path='/secured/settings' element={<SettingsPage />} />
             <Route exact path='/secured/profile' element={<ProfilePage />} />
