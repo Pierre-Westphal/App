@@ -30,7 +30,6 @@ async def create_user(db: db_dependency, user_data: User, request: Request):
     try:
         user_data.sso_user_id = keycloak_user["id"]
         test = user_handler.create(db, user_data).to_dict()
-        print(test)
         return test 
     except Exception as exc:
         raise HTTPException(status_code=400, detail="An error occurred while creating the user")

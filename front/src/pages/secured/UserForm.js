@@ -47,7 +47,6 @@ const UserForm = ({typeForm, userProps}) => {
   
     const handleCloseConrirmationModal = () => {
       setShowConrirmationModal(false); // Close the modal
-      console.log(userDict)
       apiRequest('user', 'POST', userDict).then((data) => {
         if (data.errors) {
           setErrorMessage(data.errors);
@@ -57,6 +56,8 @@ const UserForm = ({typeForm, userProps}) => {
         }
       });
     };
+    
+    const viewMod = typeForm === 'view';
   
     return (
       <div>
@@ -78,21 +79,21 @@ const UserForm = ({typeForm, userProps}) => {
             <h1>Users creation</h1>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <TextField label='First Name' type='text' required variant='outlined' value={firstName ? firstName : ''} onChange={(e) => setFirstName(e.target.value)} sx={{ mb: 3 }} />
+                <TextField label='First Name' type='text' required variant='outlined' disabled={viewMod} value={firstName ? firstName : ''} onChange={(e) => setFirstName(e.target.value)} sx={{ mb: 3 }} />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField label='Last Name' type='text' required variant='outlined' value={lastName ? lastName : ''} onChange={(e) => setLastName(e.target.value)} sx={{ mb: 3 }} />
+                <TextField label='Last Name' type='text' required variant='outlined' disabled={viewMod} value={lastName ? lastName : ''} onChange={(e) => setLastName(e.target.value)} sx={{ mb: 3 }} />
               </Grid>
               <Grid item xs={12}>
-                <TextField label='Username' type='text' required variant='outlined' value={userName ? userName : ''} onChange={(e) => setUsername(e.target.value)} sx={{ mb: 3 }} fullWidth />
+                <TextField label='Username' type='text' required variant='outlined' disabled={viewMod} value={userName ? userName : ''} onChange={(e) => setUsername(e.target.value)} sx={{ mb: 3 }} fullWidth />
               </Grid>
               {typeForm !== 'view' && (
                 <Grid item xs={12}>
-                    <TextField label='Password' type='password' required variant='outlined' onChange={(e) => setPassword(e.target.value)} sx={{ mb: 3 }} fullWidth />
+                    <TextField label='Password' type='password' required variant='outlined' disabled={viewMod} onChange={(e) => setPassword(e.target.value)} sx={{ mb: 3 }} fullWidth />
                 </Grid>
               )}
               <Grid item xs={12}>
-                <TextField label='Email' type='email' required variant='outlined' value={email ? email : ''} onChange={(e) => setEmail(e.target.value)} sx={{ mb: 3 }} fullWidth />
+                <TextField label='Email' type='email' required variant='outlined' disabled={viewMod} value={email ? email : ''} onChange={(e) => setEmail(e.target.value)} sx={{ mb: 3 }} fullWidth />
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth variant="outlined" sx={{ mb: 3 }}>
@@ -100,6 +101,7 @@ const UserForm = ({typeForm, userProps}) => {
                   <Select
                     labelId="language-select-label"
                     value={language}
+                    disabled={viewMod}
                     onChange={handleLanguageChange}
                     label="Language"
                   >
