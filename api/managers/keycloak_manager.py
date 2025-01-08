@@ -57,7 +57,7 @@ class KeycloakManager:
             print(f"HTTP error occurred: {http_err}")
         except Exception as err:
             print(f"Other error occurred: {err}")
-        return None
+
     
     def get_token(self, headers=None):
         """
@@ -113,17 +113,43 @@ class KeycloakManager:
             print(f"HTTP error occurred: {http_err}")
         except Exception as err:
             print(f"Other error occurred: {err}")
-        return None
 
-    def delete_user(self, user_id, headers=None):
+
+    def update_user(self, sso_user_id, user_data, headers=None):
+        """
+        Update a user by user ID.
+        :param sso_user_id: ID of the user to be updated.
+        :param user_data: Dictionary containing user information.
+        """
+        if not headers:
+            headers = self.get_token()
+
+        url = f"{self.sso_url}admin/realms/{self.sso_realm}/users/{sso_user_id}"
+        headers = {
+            'Authorization': f'Bearer {headers["access_token"]}',
+            'Refresh-Token': headers["refresh_token"],
+            'Content-Type': 'application/json'
+        }
+
+        try:
+            response = requests.put(url, headers=headers, json=user_data)
+            response.raise_for_status()
+            return response.status_code
+        except HTTPError as http_err:
+            print(f"HTTP error occurred: {http_err}")
+        except Exception as err:
+            print(f"Other error occurred: {err}")
+
+
+    def delete_user(self, sso_user_id, headers=None):
         """
         Delete a user by user ID.
-        :param user_id: ID of the user to be deleted.
+        :param sso_user_id: ID of the user to be deleted.
         """
 
         headers = self.get_token()
 
-        url = f"{self.sso_url}admin/realms/{self.sso_realm}/users/{user_id}"
+        url = f"{self.sso_url}admin/realms/{self.sso_realm}/users/{sso_user_id}"
         headers = {
             'Authorization': f'Bearer {headers["access_token"]}',
             'Refresh-Token': headers["refresh_token"],
@@ -138,4 +164,3 @@ class KeycloakManager:
             print(f"HTTP error occurred: {http_err}")
         except Exception as err:
             print(f"Other error occurred: {err}")
-        return None

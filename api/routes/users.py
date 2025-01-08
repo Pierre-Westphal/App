@@ -15,7 +15,7 @@ router = APIRouter()
 get_db()
 
 @router.post("/user", status_code=status.HTTP_201_CREATED)
-async def create_user(db: db_dependency, user_data: User, request: Request):
+async def create_user(db: db_dependency, user_data: User):
 
     user = KeycloakManager().get_users(params={"username": user_data.username})
 
@@ -29,11 +29,28 @@ async def create_user(db: db_dependency, user_data: User, request: Request):
 
     try:
         user_data.sso_user_id = keycloak_user["id"]
-        test = user_handler.create(db, user_data).to_dict()
-        return test 
+        return user_handler.create(db, user_data).to_dict()
     except Exception as exc:
         raise HTTPException(status_code=400, detail="An error occurred while creating the user")
     
+@router.patch("/user", status_code=status.HTTP_200_OK)
+async def update_user(db: db_dependency, user_data: User):
+    user = user_handler.get(db, user_data.user_id)
+    if not user:
+        raise HTTPException(status_code=400, detail="User does not exist")
+    print(user.sso_user_id)
+    try:
+        KeycloakManager().update_user(user.sso_user_id, keycloak_helper.create_user_dict_for_keycloak(user_data))
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail="An error occurred while updating the user")
+
+    try:
+        user_data.sso_user_id = user.sso_user_id
+        return user_handler.patch(db, user_data).to_dict()
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail="An error occurred while updating the user")
+    
+
 @router.get("/users", response_model=List[User])
 async def get_users(db: db_dependency, q: Optional[str] = Query(None)):
     """

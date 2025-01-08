@@ -9,7 +9,8 @@ const UserModificationPage = () => {
         lastName: localStorage.getItem('lastName'),
         username: localStorage.getItem('username'),
         email: localStorage.getItem('email'),
-        language: localStorage.getItem('languageCode')
+        language: localStorage.getItem('languageCode'),
+        userId: localStorage.getItem('userId')
     }
 
     return (

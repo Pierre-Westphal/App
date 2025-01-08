@@ -1,9 +1,10 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, root_validator
 from pydantic.functional_validators import field_validator
 from typing import Optional
 
 
 class User(BaseModel):
+    user_id : Optional[int] = 0
     first_name: str
     last_name: str
     username: str
@@ -12,11 +13,12 @@ class User(BaseModel):
     sso_user_id: Optional[str] = None
     language: str
  
-    @field_validator("password")
-    def validate_password(cls, v):
-        if len(v) < 8:
-            raise ValueError("Password must be at least 8 characters long")
-        return v
+    # @root_validator(pre=True)
+    # def validate_password(cls, values):
+    #     password = values.get('password')
+    #     if password and len(password) < 8:
+    #         raise ValueError("Password must be at least 8 characters long")
+    #     return values
     
     @field_validator("username")
     def validate_username(cls, v):

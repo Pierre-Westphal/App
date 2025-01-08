@@ -8,6 +8,7 @@ import ConfirmationModal from '../../helpers/ConfirmationModal';
 import LeftMenu from '../../menus/SecuredSubLetfMenu';
 
 const UserForm = ({typeForm, userProps}) => {
+    const [userId, setUserId] = useState(userProps && userProps.userId ? userProps.userId : 0);
     const [firstName, setFirstName] = useState(userProps && userProps.firstName ? userProps.firstName : '');
     const [lastName, setLastName] = useState(userProps && userProps.lastName ? userProps.lastName : '');
     const [email, setEmail] = useState(userProps && userProps.email ? userProps.email : '');
@@ -19,7 +20,7 @@ const UserForm = ({typeForm, userProps}) => {
     const [userDict, setUserDict] = useState({});
     const [language, setLanguage] = useState(userProps && userProps.language ? userProps.language : 'FR');
     const viewMod = typeForm === 'view';
-    
+    const createMod = typeForm === 'creation';
     const handleLanguageChange = (e) => {
       setLanguage(e.target.value);
     };
@@ -27,6 +28,7 @@ const UserForm = ({typeForm, userProps}) => {
     const handleSubmit = (event) => {
       event.preventDefault();
       setUserDict({
+        user_id: userId,
         first_name: firstName,
         last_name: lastName,
         email: email,
@@ -45,7 +47,7 @@ const UserForm = ({typeForm, userProps}) => {
       setShowConrirmationModal(false);
     };
   
-    const handleCloseConrirmationModal = () => {
+    const handleCloseConrirmationModalCreate = () => {
       setShowConrirmationModal(false);
       apiRequest('user', 'POST', userDict).then((data) => {
         if (data.errors) {
@@ -53,6 +55,18 @@ const UserForm = ({typeForm, userProps}) => {
           setShowErrorModal(true);
         } else {
           toast.success('User created successfully!');
+        }
+      });
+    };
+
+    const handleCloseConrirmationModalModification = () => {
+      setShowConrirmationModal(false);
+      apiRequest('user', 'PATCH', userDict).then((data) => {
+        if (data.errors) {
+          setErrorMessage(data.errors);
+          setShowErrorModal(true);
+        } else {
+          toast.success('User updated successfully!');
         }
       });
     };
@@ -68,7 +82,7 @@ const UserForm = ({typeForm, userProps}) => {
         <ConfirmationModal
           open={showConrirmationModal}
           Title={"Confirmation"}
-          handleCloseWithResult={handleCloseConrirmationModal}
+          handleCloseWithResult={createMod ? handleCloseConrirmationModalCreate : handleCloseConrirmationModalModification}
           handleCloseWithoutResult={handleCloseConrirmationModalWithoutModifications}
           Message={userDict}
         />
@@ -85,7 +99,7 @@ const UserForm = ({typeForm, userProps}) => {
               <Grid item xs={12}>
                 <TextField label='Username' type='text' required variant='outlined' disabled={viewMod} value={userName ? userName : ''} onChange={(e) => setUsername(e.target.value)} sx={{ mb: 3 }} fullWidth />
               </Grid>
-              {typeForm !== 'view' && (
+              {createMod && (
                 <Grid item xs={12}>
                     <TextField label='Password' type='password' required variant='outlined' disabled={viewMod} onChange={(e) => setPassword(e.target.value)} sx={{ mb: 3 }} fullWidth />
                 </Grid>
