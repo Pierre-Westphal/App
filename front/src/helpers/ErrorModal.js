@@ -28,7 +28,7 @@ const ErrorModal = ({ open, handleClose, errorMessage }) => {
           </Typography>
           
           <Typography component="ul" variant="body1" color="error">
-            {errorMessage && errorMessage.map((error, index) => (
+            {errorMessage && typeof errorMessage === 'object' ? errorMessage.map((error, index) => (
               <Typography component="li" key={index} sx={{ mb: 2 }}>
                 <Typography component="span" variant="subtitle1">
                   {index + 1}. Field: {error.loc[1]}
@@ -38,7 +38,7 @@ const ErrorModal = ({ open, handleClose, errorMessage }) => {
                 <Typography component="li">Message: {error.msg}</Typography>
             </Typography>
               </Typography>
-            ))}
+            )) : <Typography component="li">Message: {errorMessage}</Typography> }
           </Typography>
 
           <Button variant="contained" color="error" onClick={handleClose} sx={{ mt: 2 }}>

@@ -18,11 +18,13 @@ const confirmationModal = ({ open, handleCloseWithResult, handleCloseWithoutResu
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
                     <ul>
-                        {Object.entries(Message).map(([key, value]) => (
-                            <li key={key}>
-                                <strong>{key}:</strong> {key === 'password' ? '********' : value}
-                            </li>
-                        ))}
+                        <div>
+                            {Object.entries(Message).map(([key, value]) => (
+                                <li key={key}>
+                                    <strong>{key}:</strong> {key === 'password' ? '********' : value}
+                                </li>
+                            ))}
+                        </div>
                     </ul>
                 </DialogContentText>
             </DialogContent>

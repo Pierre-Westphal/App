@@ -17,7 +17,8 @@ const UserForm = ({typeForm, userProps}) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [showConrirmationModal, setShowConrirmationModal] = useState(false);
     const [userDict, setUserDict] = useState({});
-    const [language, setLanguage] = useState(userProps && userProps.language ? userProps.language : 'FR'); // Valeur par défaut : FR
+    const [language, setLanguage] = useState(userProps && userProps.language ? userProps.language : 'FR');
+    const viewMod = typeForm === 'view';
     
     const handleLanguageChange = (e) => {
       setLanguage(e.target.value);
@@ -34,19 +35,18 @@ const UserForm = ({typeForm, userProps}) => {
         language: language
       });
       setShowConrirmationModal(true);
-  
     };
   
     const handleCloseErrorModal = () => {
-      setShowErrorModal(false); // Close the modal
+      setShowErrorModal(false);
     };
   
     const handleCloseConrirmationModalWithoutModifications = () => {
-      setShowConrirmationModal(false); // Close the modal
+      setShowConrirmationModal(false);
     };
   
     const handleCloseConrirmationModal = () => {
-      setShowConrirmationModal(false); // Close the modal
+      setShowConrirmationModal(false);
       apiRequest('user', 'POST', userDict).then((data) => {
         if (data.errors) {
           setErrorMessage(data.errors);
@@ -56,8 +56,6 @@ const UserForm = ({typeForm, userProps}) => {
         }
       });
     };
-    
-    const viewMod = typeForm === 'view';
   
     return (
       <div>
