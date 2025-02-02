@@ -4,10 +4,9 @@ from typing import List, Optional
 
 from config.database_connection import get_db, db_dependency
 
-from helpers import keycloak_helper
+from helpers import keycloak_helper, sso_helper
 from schemas.user import User
 from managers.keycloak_manager import KeycloakManager
-
 from handlers import user_handler
 
 router = APIRouter()
@@ -38,15 +37,17 @@ async def update_user(db: db_dependency, user_data: User):
     user = user_handler.get(db, user_data.user_id)
     if not user:
         raise HTTPException(status_code=400, detail="User does not exist")
-    print(user.sso_user_id)
     try:
+        print(sso_helper.updated_fields(user.to_dict(), user_data.dict()))
         KeycloakManager().update_user(user.sso_user_id, keycloak_helper.create_user_dict_for_keycloak(user_data))
     except Exception as exc:
+        print(exc)
         raise HTTPException(status_code=400, detail="An error occurred while updating the user")
 
     try:
         user_data.sso_user_id = user.sso_user_id
-        return user_handler.patch(db, user_data).to_dict()
+        # return user_handler.patch(db, user_data).to_dict()
+        return user.to_dict()
     except Exception as exc:
         raise HTTPException(status_code=400, detail="An error occurred while updating the user")
     

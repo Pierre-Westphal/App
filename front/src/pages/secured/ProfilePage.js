@@ -10,7 +10,7 @@ const Profile = () => {
     firstName: localStorage.getItem('firstName'), 
     lastName: localStorage.getItem('lastName'),   
     username: localStorage.getItem('username'),   
-    email: localStorage.getItem('email'), 
+    email: localStorage.getItem('email'),
     language: localStorage.getItem('languageCode')
   };
 

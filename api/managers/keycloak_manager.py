@@ -29,7 +29,7 @@ class KeycloakManager:
         headers = {
             "Authorization": access_token,
         }
-        print(headers)
+
         url = f'{self.sso_url}realms/{self.sso_realm}/protocol/openid-connect/userinfo'
         
         response = requests.get(url, headers=headers)
@@ -130,7 +130,6 @@ class KeycloakManager:
             'Refresh-Token': headers["refresh_token"],
             'Content-Type': 'application/json'
         }
-
         try:
             response = requests.put(url, headers=headers, json=user_data)
             response.raise_for_status()

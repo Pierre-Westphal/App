@@ -33,6 +33,13 @@ export const AuthProvider = ({ children }) => {
     keycloak.logout();
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('email');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('languageCode');
+    localStorage.removeItem('ssoUserId');
+
     setAuthenticated(false);
     setUserInfo(null);
   };
