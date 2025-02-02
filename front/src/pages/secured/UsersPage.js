@@ -33,7 +33,6 @@ const UsersPage = () => {
   useEffect(() => {
     resultUsers();
   }, []);
-
   return (
     <div>
       <LeftMenu />
@@ -75,7 +74,7 @@ const UsersPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {result.map((user, index) => (
+              {result && result.map((user, index) => (
                 <TableRow key={index}>
                   <TableCell align="center">{user.first_name}</TableCell>
                   <TableCell align="center">{user.last_name}</TableCell>

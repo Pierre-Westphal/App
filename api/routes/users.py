@@ -38,10 +38,8 @@ async def update_user(db: db_dependency, user_data: User):
     if not user:
         raise HTTPException(status_code=400, detail="User does not exist")
     try:
-        print(sso_helper.updated_fields(user.to_dict(), user_data.dict()))
-        KeycloakManager().update_user(user.sso_user_id, keycloak_helper.create_user_dict_for_keycloak(user_data))
+        KeycloakManager().update_user(user.sso_user_id, sso_helper.updated_fields(user.to_dict(), user_data.dict()))
     except Exception as exc:
-        print(exc)
         raise HTTPException(status_code=400, detail="An error occurred while updating the user")
 
     try:
