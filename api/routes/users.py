@@ -44,8 +44,7 @@ async def update_user(db: db_dependency, user_data: User):
 
     try:
         user_data.sso_user_id = user.sso_user_id
-        # return user_handler.patch(db, user_data).to_dict()
-        return user.to_dict()
+        return user_handler.patch(db, user_data).to_dict()
     except Exception as exc:
         raise HTTPException(status_code=400, detail="An error occurred while updating the user")
     

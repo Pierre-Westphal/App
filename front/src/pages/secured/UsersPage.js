@@ -20,8 +20,12 @@ const UsersPage = () => {
     navigate('/secured/userCreation');
   }
 
-  const handleUserModification = () => {
-    navigate('/secured/userModification');
+  const handleViewCreation = (dict) => {
+    navigate('/secured/profile', {state: {userData: dict}});
+  }
+
+  const handleUserModification = (dict) => {
+    navigate('/secured/userModification', {state: {userData: dict}});
   }
 
   const resultUsers = (q = searchTerm) => {
@@ -46,18 +50,11 @@ const UsersPage = () => {
           fullWidth
         />
         <Button 
-          sx={{ width: 150, height: 40, marginLeft: 5, marginTop:3 }} 
+          sx={{ width: 150, height: 40, marginLeft: 5, marginTop:4 }} 
           variant="outlined" 
           onClick={() => handleUserCreation()}
         >
           User Creation
-        </Button>
-        <Button 
-          sx={{ width: 150, height: 40, marginLeft: 5, marginTop:3 }} 
-          variant="outlined" 
-          onClick={() => handleUserModification()}
-        >
-          User Modification
         </Button>
         <br />
         <br />
@@ -71,6 +68,8 @@ const UsersPage = () => {
                 <TableCell align="center"><strong>Nom</strong></TableCell>
                 <TableCell align="center"><strong>Nom d'utilisateur</strong></TableCell>
                 <TableCell align="center"><strong>Email</strong></TableCell>
+                <TableCell align="center"><strong>Language</strong></TableCell>
+                <TableCell align="center"><strong>Actions</strong></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -80,6 +79,42 @@ const UsersPage = () => {
                   <TableCell align="center">{user.last_name}</TableCell>
                   <TableCell align="center">{user.username}</TableCell>
                   <TableCell align="center">{user.email}</TableCell>
+                  <TableCell align="center">{user.language}</TableCell>
+                  <TableCell align="center">
+                    <Button 
+                      sx={{ width: 150, height: 40 }} 
+                      variant="outlined" 
+                      onClick={() => {
+                        let dict = {                        
+                          firstName: user.first_name,
+                          lastName: user.last_name,
+                          username: user.username,
+                          email: user.email,
+                          language: user.language,
+                          userId: user.user_id}
+                        handleUserModification(dict);
+                      }}
+                    >
+                      Edit
+                    </Button>
+
+                    <Button 
+                      sx={{ marginLeft:1, width: 150, height: 40 }} 
+                      variant="outlined" 
+                      onClick={() => {
+                        let dict = {                        
+                          firstName: user.first_name,
+                          lastName: user.last_name,
+                          username: user.username,
+                          email: user.email,
+                          language: user.language,
+                          userId: user.user_id}
+                          handleViewCreation(dict);
+                      }}
+                    >
+                      View
+                    </Button>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

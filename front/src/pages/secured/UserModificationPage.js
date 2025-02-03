@@ -1,23 +1,19 @@
 import LeftMenu from '../../menus/SecuredSubLetfMenu';
 import UserForm from './UserForm';
+
 import React from 'react';
+import { useLocation } from "react-router-dom";
 
 
 const UserModificationPage = () => {
-    const userDict = {
-        firstName: localStorage.getItem('firstName'),
-        lastName: localStorage.getItem('lastName'),
-        username: localStorage.getItem('username'),
-        email: localStorage.getItem('email'),
-        language: localStorage.getItem('languageCode'),
-        userId: localStorage.getItem('userId')
-    }
+    const location = useLocation();
+    const user = location.state?.userData;
 
     return (
         <div>
             <LeftMenu />
             <div className='margin-left-20 margin-top-5 margin-right-2'>
-                <UserForm typeForm="edit" userProps={userDict} />
+                <UserForm typeForm="edit" userProps={user} />
             </div>
         </div>
     );
