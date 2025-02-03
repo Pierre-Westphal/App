@@ -3,6 +3,8 @@ import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Button, AppBar, Toolbar, Typography, IconButton, Box } from '@mui/material';
 import { apiRequest } from "../commons/Request";
+import { useTranslation } from 'react-i18next';
+
 
 const Nav = () => {
   const { authenticated, userInfo, logout, login } = useContext(AuthContext);
@@ -13,7 +15,13 @@ const Nav = () => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
+  
+  const { t, i18n } = useTranslation();
+  
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+  
   useEffect(() => {
     apiRequest(`user-sso-user-id/${userInfo.sub}`, 'GET', null).then((response) => {
       localStorage.setItem('userId', response.user_id)
@@ -57,6 +65,8 @@ const Nav = () => {
             ))}
           </Box>
           <>
+            <Button variant='contained' onClick={() => changeLanguage('fr')}>{t('change_language')} (FR)</Button>
+            <Button variant='contained' onClick={() => changeLanguage('en')}>{t('change_language')} (EN)</Button>
             {!authenticated  && (
               <Button variant='contained' onClick={() => login()}>
                 Login

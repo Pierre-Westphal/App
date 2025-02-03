@@ -5,11 +5,13 @@ import { apiRequest } from '../../commons/Request';
 import TextField from '@mui/material/TextField';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 import LeftMenu from '../../menus/SecuredSubLetfMenu';
+import { useTranslation } from 'react-i18next';
 
 const UsersPage = () => {
   const [result, setResult] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState('');
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
@@ -54,7 +56,7 @@ const UsersPage = () => {
           variant="outlined" 
           onClick={() => handleUserCreation()}
         >
-          User Creation
+          {t('user.userCreation')}
         </Button>
         <br />
         <br />
@@ -64,11 +66,11 @@ const UsersPage = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell align="center"><strong>Prénom</strong></TableCell>
-                <TableCell align="center"><strong>Nom</strong></TableCell>
-                <TableCell align="center"><strong>Nom d'utilisateur</strong></TableCell>
-                <TableCell align="center"><strong>Email</strong></TableCell>
-                <TableCell align="center"><strong>Language</strong></TableCell>
+                <TableCell align="center"><strong>{t('user.firstName')}</strong></TableCell>
+                <TableCell align="center"><strong>{t('user.lastName')}</strong></TableCell>
+                <TableCell align="center"><strong>{t('user.email')}</strong></TableCell>
+                <TableCell align="center"><strong>{t('user.Username')}</strong></TableCell>
+                <TableCell align="center"><strong>{t('user.Language')}</strong></TableCell>
                 <TableCell align="center"><strong>Actions</strong></TableCell>
               </TableRow>
             </TableHead>

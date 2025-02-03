@@ -1,0 +1,18 @@
+{
+    "welcome": "Bienvenue sur notre site web !",
+    "change_language": "Changer de langue",
+    "basic": {
+        "actions": "Actions",
+        "Home": "Accueil",
+        "Profile": "Profil",
+        "Users": "Utilisateurs"
+    },
+    "user": {
+        "firstName": "Prénom",
+        "lastName": "Nom de famille",
+        "email": "Email",
+        "Language": "Langue",
+        "Username": "Nom d'utilisateur",
+        "userCreation": "Création d'utilisateur"
+    }
+}
