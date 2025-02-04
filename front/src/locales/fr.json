@@ -5,7 +5,10 @@
         "actions": "Actions",
         "Home": "Accueil",
         "Profile": "Profil",
-        "Users": "Utilisateurs"
+        "Users": "Utilisateurs",
+        "Research": "Recherche",
+        "Edit": "Modifier",
+        "View": "Voir"
     },
     "user": {
         "firstName": "Prénom",
@@ -13,6 +16,19 @@
         "email": "Email",
         "Language": "Langue",
         "Username": "Nom d'utilisateur",
-        "userCreation": "Création d'utilisateur"
+        "userCreation": "Création d'utilisateur",
+        "userForm": {
+            "firstName": "Prénom",
+            "lastName": "Nom de famille",
+            "email": "Email",
+            "Language": "Langue",
+            "password": "Mot de passe",
+            "Username": "Nom d'utilisateur",
+            "userCreation": "Création d'utilisateur",
+            "submit": "Soumettre",
+            "cancel": "Annuler",
+            "create": "Créer",
+            "update": "Mettre à jour"
+        }
     }
 }

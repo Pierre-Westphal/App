@@ -45,7 +45,7 @@ const UsersPage = () => {
       <div className='margin-left-20 margin-top-5 margin-right-2'>
         <TextField
           sx={{ width: 300, marginLeft: 5, marginTop:3 }}
-          label="Recherche"
+          label={t('basic.Research')}
           variant="outlined"
           value={searchTerm}
           onChange={handleChange}
@@ -97,7 +97,7 @@ const UsersPage = () => {
                         handleUserModification(dict);
                       }}
                     >
-                      Edit
+                      {t('basic.Edit')}
                     </Button>
 
                     <Button 
@@ -114,7 +114,7 @@ const UsersPage = () => {
                           handleViewCreation(dict);
                       }}
                     >
-                      View
+                      {t('basic.View')}
                     </Button>
                   </TableCell>
                 </TableRow>
