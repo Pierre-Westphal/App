@@ -8,7 +8,9 @@
         "Users": "Utilisateurs",
         "Research": "Recherche",
         "Edit": "Modifier",
-        "View": "Voir"
+        "View": "Voir",
+        "logout": "Déconnexion",
+        "login": "Connexion"
     },
     "user": {
         "firstName": "Prénom",
@@ -17,6 +19,8 @@
         "Language": "Langue",
         "Username": "Nom d'utilisateur",
         "userCreation": "Création d'utilisateur",
+        "userUpdate": "Mise à jour de l'utilisateur",
+        "profile": "Profil",
         "userForm": {
             "firstName": "Prénom",
             "lastName": "Nom de famille",
@@ -25,6 +29,8 @@
             "password": "Mot de passe",
             "Username": "Nom d'utilisateur",
             "userCreation": "Création d'utilisateur",
+            "userModification": "Modification de l'utilisateur",
+            "profile": "Profil",
             "submit": "Soumettre",
             "cancel": "Annuler",
             "create": "Créer",

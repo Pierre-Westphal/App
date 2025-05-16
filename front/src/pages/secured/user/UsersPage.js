@@ -1,10 +1,10 @@
-import '../../style/global.css';
+import '../../../style/global.css';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiRequest } from '../../commons/Request';
+import { apiRequest } from '../../../commons/Request';
 import TextField from '@mui/material/TextField';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
-import LeftMenu from '../../menus/SecuredSubLetfMenu';
+import LeftMenu from '../../../menus/SecuredSubLetfMenu';
 import { useTranslation } from 'react-i18next';
 
 const UsersPage = () => {

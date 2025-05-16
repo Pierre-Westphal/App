@@ -8,7 +8,9 @@
         "Users": "Users",
         "Research": "Research",
         "Edit": "Edit",
-        "View": "View"
+        "View": "View",
+        "logout": "Logout",
+        "login": "Login"
     },
     "user": {
         "firstName": "First Name",
@@ -17,6 +19,8 @@
         "Language": "Language",
         "Username": "Username",
         "userCreation": "User Creation",
+        "userUpdate": "User Update",
+        "profile": "Profile",
         "userForm": {
             "firstName": "First Name",
             "lastName": "Last Name",
@@ -25,6 +29,8 @@
             "Username": "Username",
             "password": "Password",
             "userCreation": "User Creation",
+            "userModification": "User Modification",
+            "profile": "Profile",
             "submit": "Submit",
             "cancel": "Cancel",
             "create": "Create",

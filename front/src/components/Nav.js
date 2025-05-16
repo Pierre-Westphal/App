@@ -69,12 +69,12 @@ const Nav = () => {
             <Button variant='contained' onClick={() => changeLanguage('en')}>{t('change_language')} (EN)</Button>
             {!authenticated  && (
               <Button variant='contained' onClick={() => login()}>
-                Login
+                {t('basic.login')}
               </Button>
             )}
             {!!authenticated  && (
               <Button variant='contained' onClick={() => logout()}>
-                Logout {userInfo && userInfo.preferred_username ? userInfo.preferred_username : ""}
+                {t('basic.logout')} {userInfo && userInfo.preferred_username ? userInfo.preferred_username : ""}
               </Button>
             )}
           </>

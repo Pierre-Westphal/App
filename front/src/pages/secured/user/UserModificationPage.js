@@ -1,4 +1,4 @@
-import LeftMenu from '../../menus/SecuredSubLetfMenu';
+import LeftMenu from '../../../menus/SecuredSubLetfMenu';
 import UserForm from './UserForm';
 
 import React from 'react';
@@ -7,7 +7,8 @@ import { useLocation } from "react-router-dom";
 
 const UserModificationPage = () => {
     const location = useLocation();
-    const user = location.state?.userData;
+    let user = location.state?.userData;
+    user['title'] = 'userModification';
 
     return (
         <div>

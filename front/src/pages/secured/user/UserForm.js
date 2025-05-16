@@ -1,15 +1,15 @@
-import '../../style/global.css';
+import '../../../style/global.css';
 import React, { useState } from 'react';
 import { Grid, Select, MenuItem, FormControl, InputLabel, Container, Button, TextField } from '@mui/material';
-import { apiRequest } from '../../commons/Request';
+import { apiRequest } from '../../../commons/Request';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
-import ErrorModal from '../../helpers/ErrorModal';
-import ConfirmationModal from '../../helpers/ConfirmationModal';
-import LeftMenu from '../../menus/SecuredSubLetfMenu';
+import ErrorModal from '../../../helpers/ErrorModal';
+import ConfirmationModal from '../../../helpers/ConfirmationModal';
+import LeftMenu from '../../../menus/SecuredSubLetfMenu';
 
 const UserForm = ({typeForm, userProps}) => {
-    const [userId, setUserId] = useState(userProps && userProps.userId ? userProps.userId : 0);
+    const [userId] = useState(userProps && userProps.userId ? userProps.userId : 0);
     const [firstName, setFirstName] = useState(userProps && userProps.firstName ? userProps.firstName : '');
     const [lastName, setLastName] = useState(userProps && userProps.lastName ? userProps.lastName : '');
     const [email, setEmail] = useState(userProps && userProps.email ? userProps.email : '');
@@ -26,6 +26,8 @@ const UserForm = ({typeForm, userProps}) => {
     const handleLanguageChange = (e) => {
       setLanguage(e.target.value);
     };
+    console.log('userProps', userProps);
+    const [title] = useState(userProps && userProps.title ? userProps.title : 'profile');
   
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -90,7 +92,7 @@ const UserForm = ({typeForm, userProps}) => {
         />
         <Container component='main' maxWidth='xs' sx={{ textAlign: 'center', alignItems: 'center' }}>
           <form autoComplete='off' onSubmit={handleSubmit}>
-            <h1>{t('user.userForm.userCreation')}</h1>
+            <h1>{t(`user.userForm.${title}`)}</h1>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField label={t('user.userForm.firstName')} type='text' required variant='outlined' disabled={viewMod} value={firstName ? firstName : ''} onChange={(e) => setFirstName(e.target.value)} sx={{ mb: 3 }} />

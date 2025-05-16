@@ -1,15 +1,19 @@
 services:
   front:
-    build: ./front
+    build: 
+      context: ./front
     restart: always
     ports:
       - 3000:3000
     image: front_i
     container_name: front
     stdin_open: true
+    tty: true
     volumes:
-      - ./front/node_modules:/front/node_modules
       - ./front:/front
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    
 
   api:
     build: ./api

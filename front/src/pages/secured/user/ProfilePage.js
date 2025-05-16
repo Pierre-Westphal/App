@@ -1,6 +1,5 @@
-import '../../style/global.css';
-import React from 'react';
-import LeftMenu from '../../menus/SecuredSubLetfMenu';
+import '../../../style/global.css';
+import LeftMenu from '../../../menus/SecuredSubLetfMenu';
 import UserForm from './UserForm';
 import { useLocation } from "react-router-dom";
 
@@ -15,7 +14,8 @@ const Profile = () => {
       lastName: localStorage.getItem('lastName'),   
       username: localStorage.getItem('username'),   
       email: localStorage.getItem('email'),
-      language: localStorage.getItem('languageCode')
+      language: localStorage.getItem('languageCode'),
+      title: 'profile'
     };
   }
 

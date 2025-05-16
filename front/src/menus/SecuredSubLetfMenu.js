@@ -10,7 +10,6 @@ const AppLayout = () => {
     { text: 'Home', icon: <Home />, link: '/' },
     { text: 'Profile', icon: <AccountCircle />, link: '/secured/profile' },
     { text: 'Users', icon: <Group />, link: '/secured/users' },
-    { text: 'User Creation', icon: <AccountCircle />, link: '/secured/userCreation' },
     { text: 'Settings', icon: <Settings />, link: '/secured/settings' },
   ];
 
