@@ -65,8 +65,6 @@ const Nav = () => {
             ))}
           </Box>
           <>
-            <Button variant='contained' onClick={() => changeLanguage('fr')}>{t('change_language')} (FR)</Button>
-            <Button variant='contained' onClick={() => changeLanguage('en')}>{t('change_language')} (EN)</Button>
             {!authenticated  && (
               <Button variant='contained' onClick={() => login()}>
                 {t('basic.login')}

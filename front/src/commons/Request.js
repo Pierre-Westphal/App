@@ -20,15 +20,21 @@ export async function apiRequest(url, method, body = '', params = {}) {
       body: body ? JSON.stringify(body) : undefined,
     });
 
-    const data = await response.json(); // Parse the response
+    const data = await response.json();
 
-    if (response.status >= 400 || data.detail === "Validation Error") {
-      return {"errors": data.detail}; // Return the error in case of validation error
+    console.log("API response:", data);
+
+    if (response.status === 401 || data.detail === "Unauthorized") {
+      window.location.href = 'http://localhost:8080';
     }
 
-    return data; // Return the parsed response
+    if (response.status >= 400 || data.detail === "Validation Error") {
+      return {"errors": data.detail}; 
+    }
+
+    return data;
 
   } catch (error) {
-    return {"error": error}; // Propagate the error if needed
+    return {"error": error};
   }
 }

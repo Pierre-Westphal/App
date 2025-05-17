@@ -35,6 +35,15 @@
             "cancel": "Annuler",
             "create": "Créer",
             "update": "Mettre à jour"
+        },
+        "language": {
+            "fr": "Français",
+            "en": "Anglais",
+            "es": "Espagnol"
+        },
+        "sucess": {
+            "userCreation": "Utilisateur créé avec succès",
+            "userUpdate": "Utilisateur mis à jour avec succès"
         }
     }
 }

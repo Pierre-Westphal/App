@@ -35,6 +35,15 @@
             "cancel": "Cancel",
             "create": "Create",
             "update": "Update"
+        },
+        "language": {
+            "fr": "French",
+            "en": "English",
+            "es": "Spanish"
+        },
+        "sucess": {
+            "userCreation": "User created successfully",
+            "userUpdate": "User updated successfully"
         }
     }
 }

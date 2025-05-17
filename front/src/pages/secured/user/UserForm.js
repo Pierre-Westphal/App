@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import ErrorModal from '../../../helpers/ErrorModal';
 import ConfirmationModal from '../../../helpers/ConfirmationModal';
 import LeftMenu from '../../../menus/SecuredSubLetfMenu';
+import i18n from '../../../i18n';
 
 const UserForm = ({typeForm, userProps}) => {
     const [userId] = useState(userProps && userProps.userId ? userProps.userId : 0);
@@ -26,7 +27,6 @@ const UserForm = ({typeForm, userProps}) => {
     const handleLanguageChange = (e) => {
       setLanguage(e.target.value);
     };
-    console.log('userProps', userProps);
     const [title] = useState(userProps && userProps.title ? userProps.title : 'profile');
   
     const handleSubmit = (event) => {
@@ -58,7 +58,7 @@ const UserForm = ({typeForm, userProps}) => {
           setErrorMessage(data.errors);
           setShowErrorModal(true);
         } else {
-          toast.success('User created successfully!');
+          toast.success(t('user.sucess.userCreation'));
         }
       });
     };
@@ -70,7 +70,22 @@ const UserForm = ({typeForm, userProps}) => {
           setErrorMessage(data.errors);
           setShowErrorModal(true);
         } else {
-          toast.success('User updated successfully!');
+          if (userId === parseInt(localStorage.getItem('userId'))) {
+            apiRequest(`user/${userId}`, 'GET', '').then((data) => {
+              if (data.errors) {
+                setErrorMessage(data.errors);
+                setShowErrorModal(true);
+              } else {
+                localStorage.setItem('firstName', data.first_name);
+                localStorage.setItem('lastName', data.last_name);
+                localStorage.setItem('username', data.username);
+                localStorage.setItem('email', data.email);
+                localStorage.setItem('languageCode', data.language);
+                i18n.changeLanguage(data.language.toLowerCase());
+              }
+            });
+          }
+          toast.success(t('user.sucess.userUpdate'));
         }
       });
     };
@@ -121,8 +136,8 @@ const UserForm = ({typeForm, userProps}) => {
                     onChange={handleLanguageChange}
                     label={t('user.userForm.Language')}
                   >
-                    <MenuItem value="FR">French</MenuItem>
-                    <MenuItem value="EN">English</MenuItem>
+                    <MenuItem value="FR">{t('user.language.fr')}</MenuItem>
+                    <MenuItem value="EN">{t('user.language.en')}</MenuItem>
                   </Select>
                 </FormControl>
             </Grid>

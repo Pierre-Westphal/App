@@ -14,7 +14,6 @@ export const LanguageProvider = ({ children }) => {
     localStorage.setItem('languageCode', lng);
   };
 
-  // Optional: load language from API once
   useEffect(() => {
     localStorage.getItem('user_id')
     apiRequest(`user/${localStorage.getItem('user_id')}`, 'GET').then((data) => {
