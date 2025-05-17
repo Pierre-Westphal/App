@@ -67,3 +67,7 @@ async def get_users(db: db_dependency, q: Optional[str] = Query(None)):
 @router.get("/user-sso-user-id/{sso_user_id}", response_model=User)
 async def get_user(db: db_dependency, sso_user_id: Optional[str]):
     return user_handler.get_by_sso_user_id(db, sso_user_id)
+
+@router.get("/user/{user_id}", response_model=User)
+async def get_user_by_id(db: db_dependency, user_id: Optional[str]):
+    return user_handler.get(db, user_id)

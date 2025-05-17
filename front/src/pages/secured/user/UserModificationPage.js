@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 
 const UserModificationPage = () => {
     const location = useLocation();
-    let user = location.state?.userData;
+    let user = location.state?.userData || {};
     user['title'] = 'userModification';
 
     return (

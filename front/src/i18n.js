@@ -8,11 +8,14 @@ const resources = {
   fr: { translation: fr },
 };
 
+const savedLanguage = localStorage.getItem('language') ? localStorage.getItem('language').toLowerCase() : 'en';
+// console.log('savedLanguage', savedLanguage);
+// console.log('localStorage.getItem(language)', localStorage.getItem('language'));
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: "en",
+    lng: savedLanguage,
     fallbackLng: "en",
     interpolation: { escapeValue: false }
   });
