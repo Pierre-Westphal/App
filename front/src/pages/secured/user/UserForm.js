@@ -8,6 +8,7 @@ import ErrorModal from '../../../helpers/ErrorModal';
 import ConfirmationModal from '../../../helpers/ConfirmationModal';
 import LeftMenu from '../../../menus/SecuredSubLetfMenu';
 import i18n from '../../../i18n';
+import LanguageEnum from '../../../enums/LanguageEnum';
 
 const UserForm = ({typeForm, userProps}) => {
     const [userId] = useState(userProps && userProps.userId ? userProps.userId : 0);
@@ -81,11 +82,14 @@ const UserForm = ({typeForm, userProps}) => {
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('languageCode', data.language);
-                i18n.changeLanguage(data.language.toLowerCase());
+                i18n.changeLanguage(data.language.toLowerCase()).then (() => {
+                  toast.success(t('user.sucess.userUpdate'));
+                })
               }
             });
-          }
+          } else {
           toast.success(t('user.sucess.userUpdate'));
+        }
         }
       });
     };
@@ -136,8 +140,11 @@ const UserForm = ({typeForm, userProps}) => {
                     onChange={handleLanguageChange}
                     label={t('user.userForm.Language')}
                   >
-                    <MenuItem value="FR">{t('user.language.fr')}</MenuItem>
-                    <MenuItem value="EN">{t('user.language.en')}</MenuItem>
+                    {Object.keys(LanguageEnum).map((key) => (
+                      <MenuItem key={key} value={LanguageEnum[key].id}>
+                        {t(`${LanguageEnum[key].translation}`)}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
             </Grid>

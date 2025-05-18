@@ -22,10 +22,8 @@ export async function apiRequest(url, method, body = '', params = {}) {
 
     const data = await response.json();
 
-    console.log("API response:", data);
-
     if (response.status === 401 || data.detail === "Unauthorized") {
-      window.location.href = 'http://localhost:8080';
+      window.location.href = 'http://localhost:3000';
     }
 
     if (response.status >= 400 || data.detail === "Validation Error") {
