@@ -1,18 +1,26 @@
-import '../../style/global.css';
 import React from 'react';
-import LeftMenu from '../../menus/SecuredSubLetfMenu';
+import { Button } from '@mui/material';
+import { apiRequest } from '../../commons/Request';
+import DefaultDataTable from '../defaultDataTable';
 
+const Home = () => {
+  const [result, setResult] = React.useState('');
 
-const Secured = () => {
+  const resultHealth = () => {
+    apiRequest('health', 'GET').then((data) => {
+      setResult(data);
+    });
+  };
 
- return (
-  <>
-    <LeftMenu />
-    <div className='margin-left-20 margin-top-5'>
-      <h1 className="text-black text-4xl">Welcome to the Protected Page.</h1>
-    </div>
-  </>
- );
+  return (
+    <DefaultDataTable>
+      <div>
+        <h1 className='text-green-800 text-4xl'>Welcome to the Homepage</h1>
+        <Button onClick={resultHealth}>test</Button>
+        {result && <span>{result.message}</span>}
+      </div>
+    </DefaultDataTable>
+  );
 };
 
-export default Secured;
+export default Home;

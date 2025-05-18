@@ -1,7 +1,6 @@
-import LeftMenu from '../../../menus/SecuredSubLetfMenu';
+import '../../../style/global.css';
 import UserForm from './UserForm';
-
-import React from 'react';
+import DefaultDataTable from '../../defaultDataTable';
 import { useLocation } from "react-router-dom";
 
 
@@ -11,12 +10,9 @@ const UserModificationPage = () => {
     user['title'] = 'userModification';
 
     return (
-        <div>
-            <LeftMenu />
-            <div className='margin-left-20 margin-top-5 margin-right-2'>
-                <UserForm typeForm="edit" userProps={user} />
-            </div>
-        </div>
+        <>
+            <DefaultDataTable children={<UserForm typeForm="edit" userProps={user}/>}/>
+        </>
     );
 };
 

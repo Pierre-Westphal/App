@@ -1,7 +1,7 @@
 import '../style/global.css';
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { Button, AppBar, Toolbar, Typography, IconButton, Box } from '@mui/material';
+import { Button, AppBar, Toolbar, Typography, Box } from '@mui/material';
 import { apiRequest } from "../commons/Request";
 import { useTranslation } from 'react-i18next';
 
@@ -9,19 +9,9 @@ import { useTranslation } from 'react-i18next';
 const Nav = () => {
   const { authenticated, userInfo, logout, login } = useContext(AuthContext);
   const pages = [{name: 'Home', link: '/'}];
+  
+  const { t } = useTranslation();
 
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-  
-  const { t, i18n } = useTranslation();
-  
-  const changeLanguage = (lang) => {
-    i18n.changeLanguage(lang);
-  };
-  
   useEffect(() => {
     apiRequest(`user-sso-user-id/${userInfo.sub}`, 'GET', null).then((response) => {
       localStorage.setItem('userId', response.user_id)
@@ -38,16 +28,14 @@ const Nav = () => {
     <>
       <AppBar position='fixed' sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Toolbar variant='dense'>
-          <IconButton size='large' edge='start' color='inherit' aria-label='menu' sx={{ mr: 2 }} />
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            Demo
+            {t('projectName')}
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
                 key={page.link}
                 href={page.link}
-                onClick={() => handleCloseNavMenu(page.link)}
                 sx={{
                   my: 2,
                   color: 'white',

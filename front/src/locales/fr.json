@@ -1,6 +1,14 @@
 {
     "welcome": "Bienvenue sur notre site web !",
     "change_language": "Changer de langue",
+    "projectName": "Demo de projet",
+    "menu": {
+        "home": "Accueil",
+        "profile": "Profil",
+        "users": "Utilisateurs",
+        "research": "Recherche",
+        "settings": "Paramètres"
+    },
     "basic": {
         "actions": "Actions",
         "Home": "Accueil",

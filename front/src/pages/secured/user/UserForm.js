@@ -1,12 +1,11 @@
 import '../../../style/global.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Grid, Select, MenuItem, FormControl, InputLabel, Container, Button, TextField } from '@mui/material';
 import { apiRequest } from '../../../commons/Request';
 import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 import ErrorModal from '../../../helpers/ErrorModal';
 import ConfirmationModal from '../../../helpers/ConfirmationModal';
-import LeftMenu from '../../../menus/SecuredSubLetfMenu';
 import i18n from '../../../i18n';
 import LanguageEnum from '../../../enums/LanguageEnum';
 
@@ -96,7 +95,6 @@ const UserForm = ({typeForm, userProps}) => {
   
     return (
       <div>
-        <LeftMenu />
         <ErrorModal
           open={showErrorModal}
           handleClose={handleCloseErrorModal}

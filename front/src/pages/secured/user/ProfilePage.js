@@ -1,5 +1,5 @@
 import '../../../style/global.css';
-import LeftMenu from '../../../menus/SecuredSubLetfMenu';
+import DefaultDataTable from '../../defaultDataTable';
 import UserForm from './UserForm';
 import { useLocation } from "react-router-dom";
 
@@ -21,10 +21,7 @@ const Profile = () => {
 
   return (
     <>
-      <LeftMenu />
-      <div className='margin-left-20 margin-top-5 margin-right-2'>
-        <UserForm typeForm="view" userProps={user} />
-      </div>
+      <DefaultDataTable children={<UserForm typeForm="view" userProps={user}/>}/>
     </>
   );
 };

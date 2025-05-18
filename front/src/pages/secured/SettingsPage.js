@@ -1,18 +1,23 @@
-import '../../style/global.css';
 import React from 'react';
-import LeftMenu from '../../menus/SecuredSubLetfMenu';
+import { Button } from '@mui/material';
+import { apiRequest } from '../../commons/Request';
 
+const Home = () => {
+  const [result, setResult] = React.useState('');
 
-const Settings = () => {
+  const resultHealth = () => {
+    apiRequest('health', 'GET').then((data) => {
+      setResult(data);
+    });
+  };
 
- return (
-  <>
-    <LeftMenu />
-    <div className='margin-left-20 margin-top-5'>
-      <h1 className="text-black text-4xl">Welcome to the Settings Page.</h1>
+  return (
+    <div>
+      <h1 className='text-green-800 text-4xl'>Welcome to the Homepage</h1>
+      <Button onClick={resultHealth}>test</Button>
+      {result && <span>{result.message}</span>}
     </div>
-  </>
- );
+  );
 };
 
-export default Settings;
+export default Home;
