@@ -93,8 +93,8 @@ const UsersPage = () => {
           <TableBody>
             {result && result.map((user, index) => (
               <TableRow key={index}>
-                <TableCell align="center">{user.first_name}</TableCell>
-                <TableCell align="center">{user.last_name}</TableCell>
+                <TableCell align="center">{user.firstName}</TableCell>
+                <TableCell align="center">{user.lastName}</TableCell>
                 <TableCell align="center">{user.username}</TableCell>
                 <TableCell align="center">{user.email}</TableCell>
                 <TableCell align="center">{t(`${LanguageEnum[user.language].translation}`)}</TableCell>
@@ -104,12 +104,12 @@ const UsersPage = () => {
                     variant="outlined" 
                     onClick={() => {
                       let dict = {                        
-                        firstName: user.first_name,
-                        lastName: user.last_name,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
                         username: user.username,
                         email: user.email,
                         language: user.language,
-                        userId: user.user_id}
+                        userId: user.userId}
                       handleUserModification(dict);
                     }}
                   >
@@ -121,12 +121,12 @@ const UsersPage = () => {
                     variant="outlined" 
                     onClick={() => {
                       let dict = {                        
-                        firstName: user.first_name,
-                        lastName: user.last_name,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
                         username: user.username,
                         email: user.email,
                         language: user.language,
-                        userId: user.user_id}
+                        userId: user.userId}
                         handleViewCreation(dict);
                     }}
                   >

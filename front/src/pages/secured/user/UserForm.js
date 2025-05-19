@@ -32,9 +32,9 @@ const UserForm = ({typeForm, userProps}) => {
     const handleSubmit = (event) => {
       event.preventDefault();
       setUserDict({
-        user_id: userId,
-        first_name: firstName,
-        last_name: lastName,
+        userId: userId,
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         password: password,
         username: userName,
@@ -76,8 +76,8 @@ const UserForm = ({typeForm, userProps}) => {
                 setErrorMessage(data.errors);
                 setShowErrorModal(true);
               } else {
-                localStorage.setItem('firstName', data.first_name);
-                localStorage.setItem('lastName', data.last_name);
+                localStorage.setItem('firstName', data.firstName);
+                localStorage.setItem('lastName', data.lastName);
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('languageCode', data.language);
