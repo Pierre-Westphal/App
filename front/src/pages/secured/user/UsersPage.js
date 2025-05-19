@@ -97,7 +97,7 @@ const UsersPage = () => {
                 <TableCell align="center">{user.lastName}</TableCell>
                 <TableCell align="center">{user.username}</TableCell>
                 <TableCell align="center">{user.email}</TableCell>
-                <TableCell align="center">{t(`${LanguageEnum[user.language].translation}`)}</TableCell>
+                <TableCell align="center">{t(`${LanguageEnum[user.languageCode].translation}`)}</TableCell>
                 <TableCell align="center">
                   <Button 
                     sx={{ width: 150, height: 40 }} 
@@ -108,7 +108,7 @@ const UsersPage = () => {
                         lastName: user.lastName,
                         username: user.username,
                         email: user.email,
-                        language: user.language,
+                        languageCode: user.languageCode,
                         userId: user.userId}
                       handleUserModification(dict);
                     }}
@@ -125,7 +125,7 @@ const UsersPage = () => {
                         lastName: user.lastName,
                         username: user.username,
                         email: user.email,
-                        language: user.language,
+                        languageCode: user.languageCode,
                         userId: user.userId}
                         handleViewCreation(dict);
                     }}

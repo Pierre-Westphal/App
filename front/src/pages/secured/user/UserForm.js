@@ -20,12 +20,12 @@ const UserForm = ({typeForm, userProps}) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [showConrirmationModal, setShowConrirmationModal] = useState(false);
     const [userDict, setUserDict] = useState({});
-    const [language, setLanguage] = useState(userProps && userProps.language ? userProps.language : 'FR');
+    const [languageCode, setLanguageCode] = useState(userProps && userProps.languageCode ? userProps.languageCode : 'FR');
     const viewMod = typeForm === 'view';
     const createMod = typeForm === 'creation';
     const { t } = useTranslation();
-    const handleLanguageChange = (e) => {
-      setLanguage(e.target.value);
+    const handleLanguageCodeChange = (e) => {
+      setLanguageCode(e.target.value);
     };
     const [title] = useState(userProps && userProps.title ? userProps.title : 'profile');
   
@@ -38,7 +38,7 @@ const UserForm = ({typeForm, userProps}) => {
         email: email,
         password: password,
         username: userName,
-        language: language
+        languageCode: languageCode
       });
       setShowConrirmationModal(true);
     };
@@ -133,9 +133,9 @@ const UserForm = ({typeForm, userProps}) => {
                   <InputLabel id="language-select-label">{t('user.userForm.Language')}</InputLabel>
                   <Select
                     labelId="language-select-label"
-                    value={language}
+                    value={languageCode}
                     disabled={viewMod}
-                    onChange={handleLanguageChange}
+                    onChange={handleLanguageCodeChange}
                     label={t('user.userForm.Language')}
                   >
                     {Object.keys(LanguageEnum).map((key) => (
