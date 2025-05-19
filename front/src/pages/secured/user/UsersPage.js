@@ -6,10 +6,13 @@ import TextField from '@mui/material/TextField';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import DefaultDataTable from '../../defaultDataTable';
+import LanguageEnum from '../../../enums/LanguageEnum';
 
 const UsersPage = () => {
   const [result, setResult] = React.useState([]);
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [sortBy, setSortBy] = React.useState('first_name');
+  const [sortOrder, setSortOrder] = React.useState('asc');
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -25,8 +28,8 @@ const UsersPage = () => {
     navigate('/secured/userModification', {state: {userData: dict}});
   }
 
-  const resultUsers = (q = searchTerm) => {
-    apiRequest('users', 'GET', null, {'q': q}).then((data) => {
+  const resultUsers = (q = searchTerm, sort_by = 'first_name', order = 'asc') => {
+    return apiRequest('users', 'GET', null, {'q': q, 'sort_by': sort_by, 'order': order}).then((data) => {
       setResult(data);
     });
   };
@@ -36,10 +39,18 @@ const UsersPage = () => {
     resultUsers();
   };
 
+  const handleSort = (column) => {
+    const newOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+    setSortOrder(newOrder);
+    setSortBy(column);
+    resultUsers(searchTerm, column, newOrder);
+  };
+
 
   useEffect(() => {
     resultUsers();
   }, []);
+
   return (
     <DefaultDataTable>
       <TextField
@@ -65,10 +76,16 @@ const UsersPage = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="center"><strong>{t('user.firstName')}</strong></TableCell>
-              <TableCell align="center"><strong>{t('user.lastName')}</strong></TableCell>
+              <TableCell align="center" onClick={() => handleSort('first_name')} style={{ cursor: 'pointer' }}> 
+                <strong>{t('user.firstName')}</strong>{' '}
+                  {sortBy === 'first_name' && (sortOrder === 'asc' ? '🔼' : '🔽')}</TableCell>
+              <TableCell align="center" onClick={() => handleSort('last_name')} style={{ cursor: 'pointer' }}>
+                <strong>{t('user.lastName')}</strong>{' '}
+                  {sortBy === 'last_name' && (sortOrder === 'asc' ? '🔼' : '🔽')}</TableCell>
+              <TableCell align="center" onClick={() => handleSort('username')} style={{ cursor: 'pointer' }}>
+                <strong>{t('user.Username')}</strong>{' '}
+                  {sortBy === 'username' && (sortOrder === 'asc' ? '🔼' : '🔽')}</TableCell>
               <TableCell align="center"><strong>{t('user.email')}</strong></TableCell>
-              <TableCell align="center"><strong>{t('user.Username')}</strong></TableCell>
               <TableCell align="center"><strong>{t('user.Language')}</strong></TableCell>
               <TableCell align="center"><strong>Actions</strong></TableCell>
             </TableRow>
@@ -80,7 +97,7 @@ const UsersPage = () => {
                 <TableCell align="center">{user.last_name}</TableCell>
                 <TableCell align="center">{user.username}</TableCell>
                 <TableCell align="center">{user.email}</TableCell>
-                <TableCell align="center">{user.language}</TableCell>
+                <TableCell align="center">{t(`${LanguageEnum[user.language].translation}`)}</TableCell>
                 <TableCell align="center">
                   <Button 
                     sx={{ width: 150, height: 40 }} 

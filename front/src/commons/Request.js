@@ -2,8 +2,8 @@ export async function apiRequest(url, method, body = '', params = {}) {
   try {
     let base_url = `http://localhost:8000/${url}`;
     
-    if (params.q) {
-      base_url = base_url + '?' + new URLSearchParams(params).toString();
+    if (Object.keys(params).length > 0) {
+      base_url += '?' + new URLSearchParams(params).toString();
     }
 
     let access_token = localStorage.getItem('access_token');

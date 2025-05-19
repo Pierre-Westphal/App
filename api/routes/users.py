@@ -50,18 +50,12 @@ async def update_user(db: db_dependency, user_data: User):
     
 
 @router.get("/users", response_model=List[User])
-async def get_users(db: db_dependency, q: Optional[str] = Query(None)):
-    """
-    Get all users.
+async def get_users(db: db_dependency, 
+                    q: Optional[str] = Query(None), 
+                    sort_by: str = 'first_name',
+                    order: str = 'asc'):
 
-    Args:
-        db (Session): The database session.
-
-    Returns:
-        List[User]: A list of all user data.
-    """
-
-    users = user_handler.get_list(db, q=q)
+    users = user_handler.get_list(db, q=q, sort_by=sort_by, order=order)
     return users
 
 @router.get("/user-sso-user-id/{sso_user_id}", response_model=User)
