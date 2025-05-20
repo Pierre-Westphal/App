@@ -38,7 +38,7 @@ const UserForm = ({typeForm, userProps}) => {
         email: email,
         password: password,
         username: userName,
-        languageCode: languageCode
+        language: languageCode
       });
       setShowConrirmationModal(true);
     };

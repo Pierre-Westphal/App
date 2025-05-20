@@ -22,9 +22,7 @@ class CamelToSnakeMiddleware(BaseHTTPMiddleware):
             body_bytes = await request.body()
             try:
                 raw_json = json.loads(body_bytes)
-                print("Raw JSON:", raw_json)  # Debug: afficher le JSON brut
                 transformed_json = transform_keys_to_snake(raw_json)
-                print("Transformed JSON:", transformed_json)  # Debug: afficher le JSON transformé
                 new_body = json.dumps(transformed_json).encode("utf-8")
                 request._body = new_body  # injecter dans la requête
                 request._receive = lambda: {"type": "http.request", "body": new_body, "more_body": False}
