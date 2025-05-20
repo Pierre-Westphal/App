@@ -3,7 +3,6 @@ import re
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 
-# 🔄 Utilitaire de transformation camelCase → snake_case
 def camel_to_snake(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
@@ -15,7 +14,6 @@ def transform_keys_to_snake(obj):
         return [transform_keys_to_snake(i) for i in obj]
     return obj
 
-# 🛡️ Middleware
 class CamelToSnakeMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next):
         if request.method in ("POST", "PUT", "PATCH") and request.headers.get("content-type", "").startswith("application/json"):

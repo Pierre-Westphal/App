@@ -2,7 +2,6 @@ import json
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.responses import Response
 
-# 🔁 snake_case → camelCase
 def snake_to_camel(snake_str):
     parts = snake_str.split('_')
     return parts[0] + ''.join(word.capitalize() for word in parts[1:])
@@ -14,7 +13,6 @@ def transform_keys_to_camel(obj):
         return [transform_keys_to_camel(i) for i in obj]
     return obj
 
-# 🛡️ Middleware
 class SnakeToCamelMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request, call_next):
         response = await call_next(request)
