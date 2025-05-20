@@ -1,9 +1,10 @@
 import '../style/global.css';
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { Button, AppBar, Toolbar, Typography, Box } from '@mui/material';
 import { apiRequest } from "../commons/Request";
 import { useTranslation } from 'react-i18next';
+import ThemeToggle from './Theme';
 
 
 const Nav = () => {
@@ -53,6 +54,7 @@ const Nav = () => {
             ))}
           </Box>
           <>
+          <ThemeToggle />
             {!authenticated  && (
               <Button variant='contained' onClick={() => login()}>
                 {t('basic.login')}

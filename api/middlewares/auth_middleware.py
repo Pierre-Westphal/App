@@ -26,6 +26,6 @@ class AuthMiddleware(BaseHTTPMiddleware):
         if not self.keycloak_manager.is_token_valid(access_token):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token invalide.",
+                detail="Token invalide",
                 headers={"WWW-Authenticate": "Bearer"},
             )
