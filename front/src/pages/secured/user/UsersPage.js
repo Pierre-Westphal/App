@@ -97,7 +97,7 @@ const UsersPage = () => {
                 <TableCell align="center">{user.lastName}</TableCell>
                 <TableCell align="center">{user.username}</TableCell>
                 <TableCell align="center">{user.email}</TableCell>
-                <TableCell align="center">{t(`${LanguageEnum[user.languageCode].translation}`)}</TableCell>
+                <TableCell align="center">{t(`${LanguageEnum[user.language].translation}`)}</TableCell>
                 <TableCell align="center">
                   <Button 
                     sx={{ width: 150, height: 40 }} 

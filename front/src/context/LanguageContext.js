@@ -15,7 +15,7 @@ export const LanguageProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    localStorage.getItem('user_id')
+    console.log(localStorage.getItem('userId'))
     apiRequest(`user/${localStorage.getItem('userId')}`, 'GET').then((data) => {
       if (data?.language && data.language !== language) {
         changeLanguage(data.language);
