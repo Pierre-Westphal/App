@@ -8,6 +8,7 @@ export async function apiRequest(url, method, body = '', params = {}) {
 
     let access_token = localStorage.getItem('access_token');
     let refresh_token = localStorage.getItem('refresh_token');
+    let current_user_id = localStorage.getItem('userId');
     
     const response = await fetch(base_url, {
       method: method,
@@ -15,7 +16,8 @@ export async function apiRequest(url, method, body = '', params = {}) {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
         'refresh_token': refresh_token,
-        'Authorization': `Bearer ${access_token}`
+        'Authorization': `Bearer ${access_token}`,
+        'Current-User-Id': current_user_id
       },
       body: body ? JSON.stringify(body) : undefined,
     });
