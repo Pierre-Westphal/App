@@ -1,64 +1,30 @@
-// import React from 'react';
-// import { Modal, Box, Typography, Button, Container } from '@mui/material';
-
-// const InformationModal = ({ open, handleClose, message }) => {
-//   return (
-//     <Modal
-//       open={open}
-//       onClose={handleClose}
-//       aria-labelledby="imformation-modal-title"
-//       aria-describedby="imformation-modal-description"
-//     >
-//       <Container maxWidth="sm">
-//         <Box
-//           sx={{
-//             position: 'absolute',
-//             top: '50%',
-//             left: '50%',
-//             transform: 'translate(-50%, -50%)',
-//             width: '50%',
-//             bgcolor: 'background.paper',
-//             border: '2px solid #2196f3',
-//             boxShadow: 24,
-//             p: 4,
-//           }}
-//         >
-//           <Typography id="information-modal-title" variant="h6" component="h2" color="infomation">
-//             Information
-//           </Typography>
-//           <Typography component="ul" variant="body1" color="infomation">
-//             {Array.isArray(message) ? (
-//               message.map((msg, index) => (
-//                 <Typography component="li" key={index} sx={{ mb: 2 }}>
-//                   <Typography component="span" variant="subtitle1">
-//                     {index + 1}. Field: {msg.loc[1]}
-//                   </Typography>
-//                   <Typography component="ul" sx={{ ml: 2 }}>
-//                     <Typography component="li">Input: {msg.input}</Typography>
-//                     <Typography component="li">Message: {msg.msg}</Typography>
-//                   </Typography>
-//                 </Typography>
-//               ))
-//             ) : (
-//               <Typography component="li">Message: {JSON.stringify(message)}</Typography>
-//             )}
-//           </Typography>
-
-//           <Button variant="contained" color="error" onClick={handleClose} sx={{ mt: 2 }}>
-//             Close
-//           </Button>
-//         </Box>
-//       </Container>
-//     </Modal>
-//   );
-// };
-
-// export default InformationModal;
-
-import React from 'react';
 import { Modal, Box, Typography, Button, Container } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import LanguageEnum from '../enums/LanguageEnum';
+
+const RenderMessageContent = ({ data, indent = 0 }) => {
+  const { t } = useTranslation();
+  if (!data || typeof data !== 'object') {
+    return <li style={{ marginLeft: `${indent}px` }}>{t(`audit.informations.${data}`)}</li>;
+  }
+
+  return Object.entries(data).map(([key, value], index) => (
+    <li key={index} style={{ marginLeft: `${indent}px` }}>
+      <strong>{t(`audit.informations.${key}`)}:</strong>
+      {typeof value === 'object' ? (
+        <Typography component="ul" variant="body1" sx={{ pl: 2 }}>
+          <RenderMessageContent data={value} indent={indent + 20} />
+        </Typography>
+      ) : (
+        key === 'language' ? ' ' + t(`${LanguageEnum[value].translation}`) : ` ${String(value)}`
+      )}
+    </li>
+  ));
+};
 
 const InformationModal = ({ open, handleClose, message }) => {
+  const { t } = useTranslation();
+
   return (
     <Modal
       open={open}
@@ -81,23 +47,15 @@ const InformationModal = ({ open, handleClose, message }) => {
           }}
         >
           <Typography id="information-modal-title" variant="h6" component="h2" color="primary" gutterBottom>
-            Information
+            {t('basic.information')}
           </Typography>
 
           <Typography component="ul" variant="body1" sx={{ pl: 2 }}>
-            {message && typeof message === 'object' ? (
-              Object.entries(message).map(([key, value], index) => (
-                <li key={index}>
-                  <strong>{key}:</strong> {String(value)}
-                </li>
-              ))
-            ) : (
-              <li>{String(message)}</li>
-            )}
+            <RenderMessageContent data={message} />
           </Typography>
 
           <Button variant="contained" color="primary" onClick={handleClose} sx={{ mt: 2 }}>
-            Fermer
+            {t('basic.close')}
           </Button>
         </Box>
       </Container>

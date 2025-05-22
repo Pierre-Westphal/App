@@ -25,12 +25,21 @@ const AuditPage = () => {
     };
 
     const handleOpenInformationModal = (audit) => {
+        let parsedDetails = audit.details;
+        try {
+            if (typeof audit.details === 'string' && audit.details.startsWith("b'")) {
+            const cleaned = audit.details.slice(2, -1);
+            parsedDetails = JSON.parse(cleaned);
+            }
+        } catch (e) {
+            parsedDetails = audit.details;
+        }
         const auditDetails = {
             username: audit.username,
             method: audit.method,
             path: audit.path,
             timestamp: new Date(audit.timestamp).toLocaleString(),
-            details: audit.details
+            details: parsedDetails
         }
         setAuditDataDetails(auditDetails);
     };

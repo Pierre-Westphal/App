@@ -10,6 +10,11 @@
         "settings": "Settings",
         "audit": "Audit"
     },
+    "language": {
+        "fr": "French",
+        "en": "English",
+        "es": "Spanish"
+    },
     "basic": {
         "actions": "Actions",
         "Home": "Home",
@@ -19,7 +24,10 @@
         "Edit": "Edit",
         "View": "View",
         "logout": "Logout",
-        "login": "Login"
+        "login": "Login",
+        "open": "Open",
+        "close": "Close",
+        "information": "Information"
     },
      "audit": {
         "title": "Audits Page",
@@ -31,6 +39,18 @@
             "timestamp": "Audit Date",
             "path": "Path",
             "method": "Method"
+        },
+        "informations": {
+            "username": "Username",
+            "method": "Method",
+            "path": "Path",
+            "timestamp": "Timestamp",
+            "details": "Details",
+            "userId": "User ID",
+            "firstName": "First name",
+            "lastName": "Last name",
+            "email": "Email",
+            "language": "Language"
         }
     },
     "user": {
@@ -56,11 +76,6 @@
             "cancel": "Cancel",
             "create": "Create",
             "update": "Update"
-        },
-        "language": {
-            "fr": "French",
-            "en": "English",
-            "es": "Spanish"
         },
         "sucess": {
             "userCreation": "User created successfully",

@@ -10,6 +10,11 @@
         "settings": "Paramètres",
         "audit": "Audit"
     },
+    "language": {
+        "fr": "Français",
+        "en": "Anglais",
+        "es": "Espagnol"
+    },
     "basic": {
         "actions": "Actions",
         "Home": "Accueil",
@@ -19,7 +24,10 @@
         "Edit": "Modifier",
         "View": "Voir",
         "logout": "Déconnexion",
-        "login": "Connexion"
+        "login": "Connexion",
+        "open": "Ouvrir",
+        "close": "Fermer",
+        "information": "Informations"
     },
     "audit": {
         "title": "Page des audits",
@@ -56,11 +64,6 @@
             "cancel": "Annuler",
             "create": "Créer",
             "update": "Mettre à jour"
-        },
-        "language": {
-            "fr": "Français",
-            "en": "Anglais",
-            "es": "Espagnol"
         },
         "sucess": {
             "userCreation": "Utilisateur créé avec succès",
