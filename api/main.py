@@ -10,16 +10,16 @@ from middlewares.camel_to_snake_middleware import CamelToSnakeMiddleware
 from middlewares.snake_to_camel_middleware import SnakeToCamelMiddleware
 from middlewares.audit_middleware import AuditMiddleware
 
-from routes import users_router
+from routes import users_router, audits_router
 
 app = FastAPI()
+
+app_settings = AppConfig()
 
 app.add_middleware(AuthMiddleware, keycloak_manager=KeycloakManager())
 app.add_middleware(CamelToSnakeMiddleware)
 app.add_middleware(SnakeToCamelMiddleware)
 app.add_middleware(AuditMiddleware)
-
-app_settings = AppConfig()
 
 get_db()
 
@@ -34,6 +34,8 @@ app.add_middleware(
 )
 
 app.include_router(users_router)
+app.include_router(audits_router)
+
 
 @app.get("/")
 def root():

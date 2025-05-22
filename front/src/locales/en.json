@@ -7,7 +7,8 @@
         "profile": "Profile",
         "users": "Users",
         "research": "Research",
-        "settings": "Settings"
+        "settings": "Settings",
+        "audit": "Audit"
     },
     "basic": {
         "actions": "Actions",
@@ -19,6 +20,18 @@
         "View": "View",
         "logout": "Logout",
         "login": "Login"
+    },
+     "audit": {
+        "title": "Audits Page",
+        "auditList": "Audit List",
+        "viewDetails": "Audit Details",
+        "auditForm": {
+            "username": "Username",
+            "details": "Details",
+            "timestamp": "Audit Date",
+            "path": "Path",
+            "method": "Method"
+        }
     },
     "user": {
         "firstName": "First Name",

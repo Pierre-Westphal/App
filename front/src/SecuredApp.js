@@ -1,5 +1,4 @@
 import { Link, Route, Routes } from 'react-router-dom';
-import React from 'react';
 import Dashboard from './components/Dashboard/Dashboard';
 import Preferences from './components/Preferences/Preferences';
 

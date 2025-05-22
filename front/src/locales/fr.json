@@ -7,7 +7,8 @@
         "profile": "Profil",
         "users": "Utilisateurs",
         "research": "Recherche",
-        "settings": "Paramètres"
+        "settings": "Paramètres",
+        "audit": "Audit"
     },
     "basic": {
         "actions": "Actions",
@@ -19,6 +20,18 @@
         "View": "Voir",
         "logout": "Déconnexion",
         "login": "Connexion"
+    },
+    "audit": {
+        "title": "Page des audits",
+        "auditList": "Liste des audits",
+        "viewDetails": "Détails de l'audit",
+        "auditForm": {
+            "username": "Nom d'utilisateur",
+            "details": "Details",
+            "timestamp": "Date de l'audit",
+            "path": "Chemin",
+            "method": "Méthode"
+        }
     },
     "user": {
         "firstName": "Prénom",

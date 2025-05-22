@@ -14,5 +14,8 @@ class SSOConfig(BaseSettings):
     SSO_REALM: str = os.getenv("SSO_REALM")
     SSO_CLIENT_ID: str = os.getenv("SSO_CLIENT_ID")
 
-class AppConfig(SSOConfig, WWWConfig, DatabaseConfig):
+class TimezoneConfig(BaseSettings):
+    TIMEZONE: str = os.getenv("TIMEZONE", "America/Toronto")
+
+class AppConfig(SSOConfig, WWWConfig, DatabaseConfig, TimezoneConfig):
     pass

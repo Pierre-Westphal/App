@@ -14,6 +14,7 @@ const AppLayout = ({open = true}) => {
     { text: t('menu.profile'), icon: <AccountCircle />, link: '/secured/profile' },
     { text: t('menu.users'), icon: <Group />, link: '/secured/users' },
     { text: t('menu.settings'), icon: <Settings />, link: '/secured/settings' },
+    { text: t('menu.audit'), icon: <Settings />, link: '/secured/audit' },
   ];
 
   return (
