@@ -7,6 +7,7 @@ import UserCreationPage from '../pages/secured/user/UserCreationPage';
 import UserModificationPage from '../pages/secured/user/UserModificationPage';
 import UsersPage from '../pages/secured/user/UsersPage';
 import SettingsPage from '../pages/secured/SettingsPage';
+import AuditPage from '../pages/secured/auditPage';
 
 const SecuredRoutes = () => (
   <Routes>
@@ -15,6 +16,7 @@ const SecuredRoutes = () => (
     <Route exact path='/secured/users' element={<UsersPage />} />
     <Route exact path='/secured/settings' element={<SettingsPage />} />
     <Route exact path='/secured/profile' element={<ProfilePage />} />
+    <Route exact path='/secured/audit' element={<AuditPage />} />
     <Route
       path='/'
       element={
