@@ -13,7 +13,7 @@ get_db()
 async def get_audits(db: db_dependency, 
                      q: Optional[str] = Query(None), 
                      sort_by: str = 'timestamp',
-                     order: str = 'asc'):
+                     order: str = 'desc'):
 
     audits = audit_handler.get_list(db, q=q, sort_by=sort_by, order=order)
     return audits
