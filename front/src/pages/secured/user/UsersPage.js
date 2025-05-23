@@ -1,9 +1,8 @@
 import '../../../style/global.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { apiRequest } from '../../../commons/Request';
-import TextField from '@mui/material/TextField';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import { TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import DefaultDataTable from '../../defaultDataTable';
 import LanguageEnum from '../../../enums/LanguageEnum';
@@ -46,13 +45,19 @@ const UsersPage = () => {
     resultUsers(searchTerm, column, newOrder);
   };
 
-
-  useEffect(() => {
+  React.useEffect(() => {
+    const resultUsers = () => {
+      apiRequest('users', 'GET').then((data) => {
+        setResult(data);
+      });
+    };
     resultUsers();
   }, []);
+      
 
   return (
     <DefaultDataTable>
+      <h1 className='text-green-800 text-4xl'>{t(`user.title`)}</h1>
       <TextField
         sx={{ width: 300, marginLeft: 5, marginTop:3 }}
         label={t('basic.Research')}
@@ -97,7 +102,11 @@ const UsersPage = () => {
                 <TableCell align="center">{user.lastName}</TableCell>
                 <TableCell align="center">{user.username}</TableCell>
                 <TableCell align="center">{user.email}</TableCell>
-                <TableCell align="center">{t(`${LanguageEnum[user.language].translation}`)}</TableCell>
+                { user && user.language && user.language !== 'null' ? (
+                  <TableCell align="center">{t(`${LanguageEnum[user.language].translation}`)}</TableCell>
+                ):(
+                  <TableCell align="center">{t('user.userForm.noLanguage')}</TableCell>
+                )}
                 <TableCell align="center">
                   <Button 
                     sx={{ width: 150, height: 40 }} 

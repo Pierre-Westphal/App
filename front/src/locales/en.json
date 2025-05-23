@@ -54,6 +54,7 @@
         }
     },
     "user": {
+        "title": "User Page",
         "firstName": "First Name",
         "lastName": "Last Name",
         "email": "Email",
@@ -75,7 +76,8 @@
             "submit": "Submit",
             "cancel": "Cancel",
             "create": "Create",
-            "update": "Update"
+            "update": "Update",
+            "noLanguage": "No language selected"
         },
         "sucess": {
             "userCreation": "User created successfully",

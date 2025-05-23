@@ -42,6 +42,7 @@
         }
     },
     "user": {
+        "title": "Page utilisateur",
         "firstName": "Prénom",
         "lastName": "Nom de famille",
         "email": "Email",
@@ -63,7 +64,8 @@
             "submit": "Soumettre",
             "cancel": "Annuler",
             "create": "Créer",
-            "update": "Mettre à jour"
+            "update": "Mettre à jour",
+            "noLanguage": "Aucune langue sélectionnée"
         },
         "sucess": {
             "userCreation": "Utilisateur créé avec succès",
