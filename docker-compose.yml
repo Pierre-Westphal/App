@@ -1,19 +1,18 @@
 services:
-  front:
-    build: 
-      context: ./front
-    restart: always
-    ports:
-      - 3000:3000
-    image: front_i
-    container_name: front
-    stdin_open: true
-    tty: true
-    volumes:
-      - ./front:/front
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    
+  # front:
+  #   build: 
+  #     context: ./front
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #   image: front_i
+  #   container_name: front
+  #   stdin_open: true
+  #   tty: true
+  #   volumes:
+  #     - ./front:/front
+  #   environment:
+  #     - CHOKIDAR_USEPOLLING=true
 
   api:
     build: ./api
@@ -30,6 +29,7 @@ services:
       SSO_CLIENT_ID: client
       WWW_URL: http://localhost:3000
       DATABASE_URL: postgresql://admin:admin@keycloak-db:5432/admin
+      TIMEZONE: America/Toronto
     ports:
       - 8000:8000
     image: api_i
@@ -99,6 +99,13 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
+  
+  mailhog:
+    image: mailhog/mailhog:latest
+    restart: always
+    ports:
+      - 1025:1025
+      - 8025:8025
 
 volumes:
   postgres_keycloak_db:

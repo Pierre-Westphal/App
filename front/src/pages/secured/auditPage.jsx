@@ -4,6 +4,7 @@ import { apiRequest } from '../../commons/Request';
 import DefaultDataTable from '../defaultDataTable';
 import { useTranslation } from 'react-i18next';
 import InformationModal from '../../helpers/InformationModal';
+import CustomDatePicker from '../../commons/DatePicker';
 
 
 const AuditPage = () => {
@@ -91,6 +92,15 @@ const AuditPage = () => {
                 onChange={handleChange}
                 fullWidth
             />
+            {/* <CustomDatePicker
+                sx={{ width: 300, marginLeft: 5, marginTop:3 }}
+                label={t('audit.auditForm.date')}
+                value={null} 
+                onChange={(date) => {
+                    console.log(date);
+                }}
+                fullWidth
+            /> */}
             <br />
             <br />
             <br />

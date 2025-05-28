@@ -16,7 +16,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
         except HTTPException:
             return JSONResponse(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                content={"detail": "Unauthorized"},
+                content={"detail": "Unauthorized"}
             )
 
     async def verify_token_from_header(self, request: Request):
@@ -26,6 +26,5 @@ class AuthMiddleware(BaseHTTPMiddleware):
         if not self.keycloak_manager.is_token_valid(access_token):
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Token invalide",
-                headers={"WWW-Authenticate": "Bearer"},
+                detail="Token invalide"
             )
