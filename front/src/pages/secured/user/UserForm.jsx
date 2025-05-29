@@ -111,24 +111,24 @@ const UserForm = ({typeForm, userProps}) => {
           <form autoComplete='off' onSubmit={handleSubmit}>
             <h1>{t(`user.userForm.${title}`)}</h1>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item size={6}>
                 <TextField label={t('user.userForm.firstName')} type='text' required variant='outlined' disabled={viewMod} value={firstName ? firstName : ''} onChange={(e) => setFirstName(e.target.value)} sx={{ mb: 3 }} />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item size={6}>
                 <TextField label={t('user.userForm.lastName')} type='text' required variant='outlined' disabled={viewMod} value={lastName ? lastName : ''} onChange={(e) => setLastName(e.target.value)} sx={{ mb: 3 }} />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item size={12}>
                 <TextField label={t('user.userForm.Username')} type='text' required variant='outlined' disabled={viewMod} value={userName ? userName : ''} onChange={(e) => setUsername(e.target.value)} sx={{ mb: 3 }} fullWidth />
               </Grid>
               {createMod && (
-                <Grid item xs={12}>
+                <Grid item size={12}>
                     <TextField label={t('user.userForm.password')} type='password' required variant='outlined' disabled={viewMod} onChange={(e) => setPassword(e.target.value)} sx={{ mb: 3 }} fullWidth />
                 </Grid>
               )}
-              <Grid item xs={12}>
+              <Grid item size={12}>
                 <TextField label={t('user.userForm.email')} type='email' required variant='outlined' disabled={viewMod} value={email ? email : ''} onChange={(e) => setEmail(e.target.value)} sx={{ mb: 3 }} fullWidth />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item size={12}>
                 <FormControl fullWidth variant="outlined" sx={{ mb: 3 }}>
                   <InputLabel id="language-select-label">{t('user.userForm.Language')}</InputLabel>
                   <Select
