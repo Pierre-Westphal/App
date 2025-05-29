@@ -15,9 +15,9 @@ get_db()
 async def get_audits(db: db_dependency, 
                      q: Optional[str] = Query(None), 
                      sort_by: str = 'timestamp',
-                     order: str = 'desc'):
-
-    audits = audit_handler.get_list(db, q=q, sort_by=sort_by, order=order)
+                     order: str = 'desc',
+                     date: Optional[str] = None):
+    audits = audit_handler.get_list(db, q=q, sort_by=sort_by, order=order, date=date)
     return audits
 
 @router.post("/xslx-audits-exports", status_code=status.HTTP_200_OK)

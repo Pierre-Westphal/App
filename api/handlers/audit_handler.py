@@ -1,5 +1,6 @@
 from models.audit_model import AuditModel
 from models.user_model import UserModel
+from helpers.string_to_date import string_to_date
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 
@@ -13,7 +14,8 @@ def create(db: Session, audit_data: dict):
 def get_list(db: Session, 
             q: str | None = None,
             sort_by: str | None = None,
-            order: str | None = None,):
+            order: str | None = None,
+            date: str | None = None):
     
     results = db.query(
             AuditModel.audit_id,
@@ -39,6 +41,10 @@ def get_list(db: Session,
         elif hasattr(UserModel, sort_by):
             column = getattr(UserModel, sort_by)
             results = results.order_by(column.desc() if order == 'desc' else column.asc())
+    
+    if date and date != "null":
+        print(f"Filtering results by date: {date}")
+        results = results.filter(AuditModel.timestamp >= string_to_date(date))
     
     results = results.all()
     

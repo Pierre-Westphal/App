@@ -38,7 +38,8 @@
             "details": "Details",
             "timestamp": "Date de l'audit",
             "path": "Chemin",
-            "method": "Méthode"
+            "method": "Méthode",
+            "date": "Date"
         }
     },
     "user": {

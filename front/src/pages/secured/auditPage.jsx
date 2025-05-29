@@ -14,11 +14,12 @@ const AuditPage = () => {
     const [sortBy, setSortBy] = React.useState('timestamp');
     const [sortOrder, setSortOrder] = React.useState('desc');
     const [showInformationModal, setShowInformationModal] = React.useState(false);
+    const [datePicker, setDatePicker] = React.useState(null);
     const { t } = useTranslation();
     
     
-    const fetchAuditData = (q = searchTerm, sort_by = 'timestamp', order = 'desc') => {
-        apiRequest('audits', 'GET', null, {'q': q, 'sort_by': sort_by, 'order': order}).then((data) => {
+    const fetchAuditData = (q = searchTerm, sort_by = 'timestamp', order = 'desc', datePicker = null) => {
+        apiRequest('audits', 'GET', null, {'q': q, 'sort_by': sort_by, 'order': order, 'date': datePicker}).then((data) => {
         setAuditData(data);
         });
     };
@@ -35,6 +36,13 @@ const AuditPage = () => {
         setSearchTerm(event.target.value);
         fetchAuditData();
     }
+
+    const handleDateChange = (date) => {
+        setDatePicker(date);
+        let formattedDate = date ? date.toISOString() : null;
+        formattedDate = formattedDate ? formattedDate.split('T')[0] : null;
+        fetchAuditData(searchTerm, sortBy, sortOrder, formattedDate);
+    };
 
     const handleCloseInformationModal = () => {
         setShowInformationModal(false)
@@ -92,15 +100,13 @@ const AuditPage = () => {
                 onChange={handleChange}
                 fullWidth
             />
-            {/* <CustomDatePicker
+            <CustomDatePicker
                 sx={{ width: 300, marginLeft: 5, marginTop:3 }}
                 label={t('audit.auditForm.date')}
-                value={null} 
-                onChange={(date) => {
-                    console.log(date);
-                }}
+                value={datePicker ? datePicker : null} 
+                onChange={(date) => handleDateChange(date)}
                 fullWidth
-            /> */}
+            />
             <br />
             <br />
             <br />

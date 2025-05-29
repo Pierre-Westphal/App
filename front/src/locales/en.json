@@ -38,7 +38,8 @@
             "details": "Details",
             "timestamp": "Audit Date",
             "path": "Path",
-            "method": "Method"
+            "method": "Method",
+            "date": "Date"
         },
         "informations": {
             "username": "Username",
