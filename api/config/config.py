@@ -17,5 +17,8 @@ class SSOConfig(BaseSettings):
 class TimezoneConfig(BaseSettings):
     TIMEZONE: str = os.getenv("TIMEZONE", "America/Toronto")
 
-class AppConfig(SSOConfig, WWWConfig, DatabaseConfig, TimezoneConfig):
+class ExportConfig(BaseSettings):
+    EXPORT_PATH: str = os.getenv("EXPORT_PATH", "exports")
+
+class AppConfig(SSOConfig, WWWConfig, DatabaseConfig, TimezoneConfig, ExportConfig):
     pass

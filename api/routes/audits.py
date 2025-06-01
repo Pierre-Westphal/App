@@ -1,4 +1,5 @@
-from fastapi import HTTPException, Query, APIRouter
+from fastapi import Query, APIRouter, Request
+from fastapi.responses import FileResponse
 from starlette import status
 from typing import Optional
 from handlers import audit_handler
@@ -24,7 +25,14 @@ async def get_audits(db: db_dependency,
 async def create_xlsx_audit_export(db: db_dependency,
                                     q: Optional[str] = Query(None), 
                                     sort_by: str = 'timestamp',
-                                    order: str = 'desc'):
-    audits = audit_handler.get_list(db, q=q, sort_by=sort_by, order=order)
-    AuditExcelBuilder(audit_data=audits).build_excel()
-    return {"message": "XLSX audit export created successfully.", "file_name": "audit_report.xlsx"}
+                                    order: str = 'desc',
+                                    date: Optional[str] = None):
+    
+    audits = audit_handler.get_list(db, q=q, sort_by=sort_by, order=order, date=date)
+
+    _, export_path = AuditExcelBuilder(audit_data=audits).build_excel()
+    filename = export_path.split('/')[-1]
+    return FileResponse(
+        path=export_path,
+        media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        filename=filename)

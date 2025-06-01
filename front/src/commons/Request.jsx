@@ -1,4 +1,4 @@
-export async function apiRequest(url, method, body = '', params = {}) {
+export async function apiRequest(url, method, body = '', params = {}, rawResponse = false) {
   try {
     let base_url = `http://localhost:8000/${url}`;
     
@@ -21,12 +21,14 @@ export async function apiRequest(url, method, body = '', params = {}) {
       },
       body: body ? JSON.stringify(body) : undefined,
     });
-
-    const data = await response.json();
-
+    
     if (response.status === 401 || data.detail === "Unauthorized") {
       window.location.href = 'http://localhost:3000';
     }
+
+    if (rawResponse) return response;
+
+    const data = await response.json();
 
     if (response.status >= 400 || data.detail === "Validation Error") {
       return {"errors": data.detail}; 

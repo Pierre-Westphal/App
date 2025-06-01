@@ -30,6 +30,7 @@ services:
       WWW_URL: http://localhost:3000
       DATABASE_URL: postgresql://admin:admin@keycloak-db:5432/admin
       TIMEZONE: America/Toronto
+      EXPORT_PATH: exports
     ports:
       - 8000:8000
     image: api_i

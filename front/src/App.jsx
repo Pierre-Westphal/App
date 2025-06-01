@@ -1,11 +1,9 @@
-import { BrowserRouter } from 'react-router-dom';
-import Nav from './components/Nav';
-import SecuredRoutes from './routes/SecuredRoutes';
+import { RouterProvider } from 'react-router-dom';
+import router from './routes/router';
 import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from './context/AuthContext';
-import { LanguageProvider } from './context/LanguageContext';
 import { ThemeContextProvider } from './context/ThemeContext';
-import 'react-toastify/dist/ReactToastify.css';
+import { LanguageProvider } from './context/LanguageContext';
 
 function App() {
   return (
@@ -13,10 +11,7 @@ function App() {
       <AuthProvider>
         <ThemeContextProvider>
           <LanguageProvider>
-            <BrowserRouter>
-              <Nav />
-              <SecuredRoutes />
-            </BrowserRouter>
+            <RouterProvider router={router} />
             <ToastContainer position='bottom-right' />
           </LanguageProvider>
         </ThemeContextProvider>

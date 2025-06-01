@@ -1,15 +1,17 @@
 from openpyxl import Workbook
 import datetime
 import os 
+from config.config import AppConfig
 
 
 class AuditExcelBuilder:
     def __init__(self, audit_data):
+        config = AppConfig()
         self.audit_data = audit_data
         self.workbook = Workbook()
         self.sheet = self.workbook.active
         self.sheet.title = "Audit Report"
-        self.folder_path = "exports"
+        self.folder_path = config.EXPORT_PATH
 
     def build_excel(self):
         # Add headers
@@ -32,4 +34,4 @@ class AuditExcelBuilder:
         file_path = os.path.join(self.folder_path, file_name)
         self.workbook.save(file_path)
 
-        return self.workbook
+        return self.workbook, file_path

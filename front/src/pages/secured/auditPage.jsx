@@ -69,6 +69,32 @@ const AuditPage = () => {
         setAuditDataDetails(auditDetails);
     };
 
+    const handleExportCreation = async () => {
+        const response = await apiRequest(
+            'xslx-audits-exports',
+            'POST',
+            null,
+            { q: searchTerm, sort_by: sortBy, order: sortOrder, date: datePicker },
+            true
+        );
+
+        if (response && response.status === 200) {
+            const disposition = response.headers.get('Content-Disposition');
+            let filename = 'export.xlsx';
+            if (disposition && disposition.includes('filename=')) {
+            filename = disposition.split('filename=')[1].replace(/['"]/g, '');
+            }
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    };
+
     React.useEffect(() => {
     if (auditDataDetails && Object.keys(auditDataDetails).length > 0) {
         setShowInformationModal(true);
@@ -107,6 +133,13 @@ const AuditPage = () => {
                 onChange={(date) => handleDateChange(date)}
                 fullWidth
             />
+            <Button 
+                sx={{ width: 150, height: 40, marginLeft: 5, marginTop:4 }} 
+                variant="outlined" 
+                onClick={handleExportCreation}
+            >
+                {t('user.userCreation')}
+            </Button>
             <br />
             <br />
             <br />

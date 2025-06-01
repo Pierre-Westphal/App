@@ -10,7 +10,7 @@ const CustomDatePicker = ({ label, value, onChange, ...props }) => {
         label={label}
         value={value}
         onChange={onChange}
-        renderInput={(params) => <TextField {...params} fullWidth />}
+        textField={(params) => <TextField {...params} fullWidth />}
         {...props}
       />
     </LocalizationProvider>
